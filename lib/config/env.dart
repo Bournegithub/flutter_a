@@ -10,12 +10,12 @@ class Config {
   static String get apiHost {
     switch (env) {
       case Env.PROD:
-        return 'https://www.fastmock.site/mock/837f5a3e982ac769f34129083f6581fc/api';
+        return 'https://www.fastmock.site/mock/63ee30171b499582c35f9064df5913ea/api';
       case Env.DEV:
-        return 'https://www.fastmock.site/mock/75b5458fc158b357c674f8520e355db0/api';
+        return 'https://www.fastmock.site/mock/911820327f34584a19bd00d2a2deb9db/api';
       case Env.LOCAL:
       default:
-        return 'https://www.fastmock.site/mock/75b5458fc158b357c674f8520e355db0/api';
+        return 'https://www.fastmock.site/mock/911820327f34584a19bd00d2a2deb9db/api';
     }
   }
 }

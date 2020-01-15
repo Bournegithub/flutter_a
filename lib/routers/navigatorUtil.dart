@@ -1,7 +1,7 @@
 import 'package:fluro/fluro.dart';
-import './application.dart';
-import '../utils/fluro_convert_util.dart';
 import 'package:flutter/material.dart';
+import './application.dart';
+// import '../utils/fluro_convert_util.dart';
 import './routes.dart';
 
 
@@ -19,7 +19,7 @@ class NavigatorUtil {
 
   /// 跳转到主页面
   static void goHomePage(BuildContext context) {
-    Application.router.navigateTo(context, Routes.home, replace: true);
+    Application.router.navigateTo(context, Routes.home, replace: true, transition: TransitionType.cupertino);
   }
 
   /// 跳转到 传参demo 页面
@@ -50,30 +50,30 @@ class NavigatorUtil {
   // }
 
   /// 自定义 转场动画
-  static Future gotransitionCustomDemoPage(BuildContext context, String title) {
-    var transition = (BuildContext context, Animation<double> animation,
-        Animation<double> secondaryAnimation, Widget child) {
-      return new ScaleTransition(
-        scale: animation,
-        child: new RotationTransition(
-          turns: animation,
-          child: child,
-        ),
-      );
-    };
-    return Application.router.navigateTo(
-        context, Routes.home + "?title=$title",
-        transition: TransitionType.custom, /// 指定是自定义动画
-        transitionBuilder: transition, /// 自定义的动画
-        transitionDuration: const Duration(milliseconds: 600)); /// 时间
-  }
+  // static Future gotransitionCustomDemoPage(BuildContext context, String title) {
+  //   var transition = (BuildContext context, Animation<double> animation,
+  //       Animation<double> secondaryAnimation, Widget child) {
+  //     return new ScaleTransition(
+  //       scale: animation,
+  //       child: new RotationTransition(
+  //         turns: animation,
+  //         child: child,
+  //       ),
+  //     );
+  //   };
+  //   return Application.router.navigateTo(
+  //       context, Routes.home + "?title=$title",
+  //       transition: TransitionType.custom, /// 指定是自定义动画
+  //       transitionBuilder: transition, /// 自定义的动画
+  //       transitionDuration: const Duration(milliseconds: 600)); /// 时间
+  // }
 
   /// 使用 IOS 的 Cupertino 的转场动画，这个是修改了源码的 转场动画
   /// Fluro本身不带，但是 Flutter自带
   static Future gotransitionCupertinoDemoPage(
       BuildContext context, String title) {
     return Application.router.navigateTo(
-        context, Routes.transitionCupertinoDemo + "?title=$title",
+        context, Routes.home + "?title=$title",
         transition: TransitionType.cupertino);
   }
 }

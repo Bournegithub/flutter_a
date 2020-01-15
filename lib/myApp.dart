@@ -8,7 +8,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'aaaaaa',
+      title: 'test',
       /// 生成路由
       onGenerateRoute: Application.router.generator,
     );

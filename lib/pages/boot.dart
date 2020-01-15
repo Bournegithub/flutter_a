@@ -16,18 +16,23 @@ class _RootPageState extends State<RootPage> {
   void initState() {
     Observable.timer(0, Duration(seconds: 2)).listen((_){
       /// 然后看 NavigatorUtil.dart
-      NavigatorUtil.gotransitionCustomDemoPage(context, Routes.home);
+      NavigatorUtil.goHomePage(context);
     });
     super.initState();
   }
   Widget build(BuildContext context) {
     return Container(
         decoration: BoxDecoration(
-            image: DecorationImage(
-          image: NetworkImage(
-              'https://img.zcool.cn/community/0372d195ac1cd55a8012062e3b16810.jpg'),
-          fit: BoxFit.cover,
-        )),
+          image: DecorationImage(
+            // 静态资源图片
+            image: new AssetImage("assets/image/boot.jpg"), 
+            // 网络资源图片
+            // image: NetworkImage(
+            //     'https://img.zcool.cn/community/0372d195ac1cd55a8012062e3b16810.jpg'
+            // ),
+            fit: BoxFit.cover,
+          )
+        ),
         child: Scaffold(
             backgroundColor: Colors.transparent, //把scaffold的背景色改成透明
             // appBar: AppBar(

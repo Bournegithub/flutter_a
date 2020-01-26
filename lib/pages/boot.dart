@@ -1,70 +1,117 @@
+// 引导页 首页启动或者版本更新时启动
+import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:rxdart/rxdart.dart';
-import '../routers/application.dart';
-import '../routers/routes.dart';
+import 'package:flutter_swiper/flutter_swiper.dart';
 import '../routers/navigatorUtil.dart';
+import '../utils/sharedPreferenceUtil.dart';
 
-class RootPage extends StatefulWidget {
-  RootPage({Key key, this.title}) : super(key: key);
+class BootPage extends StatefulWidget {
+  BootPage({Key key, this.title}) : super(key: key);
   final String title;
   @override
-  _RootPageState createState() => _RootPageState();
+  _BootPageState createState() => _BootPageState();
 }
 
-class _RootPageState extends State<RootPage> {
+class _BootPageState extends State<BootPage> {
+  bool visible = true;
+  bool isFirstOpen;
+  List bootImageList = [
+    'assets/image/boot/boot_4.jpg',
+    'assets/image/boot/boot_3.jpg',
+    'assets/image/boot/boot_2.jpg',
+    'assets/image/boot/boot_1.jpg',
+  ];
+  int count = 5;
+  final period = const Duration(seconds: 1);
+  goHome(){
+    NavigatorUtil.goHomePage(context);
+  }
+  changeVisible(val){
+    setState(() {
+      if (val == 3) {
+        visible = false;
+      } else {
+        visible = true;
+      }
+    });
+  }
+  saveIsFirstOpen() {
+    Future<bool> result = SharedPreferenceUtil.setBool('isFirstOpen', false);
+    result.then((value){
+      print('isFirstOpen已经存储');
+      goHome();
+    });
+  }
+
   @override
   void initState() {
-    Observable.timer(0, Duration(seconds: 2)).listen((_){
-      /// 然后看 NavigatorUtil.dart
-      NavigatorUtil.goHomePage(context);
-    });
     super.initState();
+    Timer.periodic(period, (timer) {
+      //到时回调
+      print('afterTimer= $count');
+      print('timer: $timer');
+      count--;
+      setState(() {
+        count;
+      });
+      if (count <= 0) {
+        //取消定时器，避免无限回调
+        timer.cancel();
+        timer = null;
+        // 跳转home页面
+        saveIsFirstOpen();
+      }
+    });
+
   }
   Widget build(BuildContext context) {
-    return Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            // 静态资源图片
-            image: new AssetImage("assets/image/boot.jpg"), 
-            // 网络资源图片
-            // image: NetworkImage(
-            //     'https://img.zcool.cn/community/0372d195ac1cd55a8012062e3b16810.jpg'
-            // ),
-            fit: BoxFit.cover,
-          )
-        ),
-        child: Scaffold(
-            backgroundColor: Colors.transparent, //把scaffold的背景色改成透明
-            // appBar: AppBar(
-            //   backgroundColor: Colors.transparent, //把appbar的背景色改成透明
-            //   // elevation: 0,//appbar的阴影
-            //   title: Text('test'),
-            // ),
-            body: Center(
-              child: new Padding(
-                padding: new EdgeInsets.only(top:200),
-                child: new Column(
-                  children: <Widget>[
-                    Text(
-                      'Link',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 36.0,
-                      )
-                    ),
-                    Text(
-                      'You have pushed the button',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20.0
-                      )
-                    ),
-                ]
-              )
-              ),
+    return Scaffold(
+      body: new Stack(
+        alignment: const Alignment(0.0, 0.9),
+        children: [
+          new Swiper(
+            itemBuilder: (BuildContext context,int index){
+              // return new Image.network("http://via.placeholder.com/350x150",fit: BoxFit.fill,);
+              return new Image.asset(bootImageList[index], fit: BoxFit.fill);
+              // if( bootImageList.length > 0) {
+              //   return new Image.network(bootImageList[index], fit: BoxFit.fill);
+              // } else {
+              //   return new Image.network('http://via.placeholder.com/350x150', fit: BoxFit.fill);
+              // }
+              
+            },
+            itemCount: bootImageList.length,
+            pagination: new SwiperPagination(),
+            // control: new SwiperControl(),
+            control: null,
+            loop: false,
+            onIndexChanged: (val){
+              print('当前切换到: $val');
+              changeVisible(val);
+            },
+            // 模拟调试不起作用
+            onTap: (val){
+              print('tap: $val');
+            }
+          ),
+          Positioned(
+            right: 20,
+            top: 40,
+            child: new Text('$count')
+          ),
+          new Offstage(
+            offstage: visible,
+            child: new MaterialButton(
+              color: Colors.blue,
+              textColor: Colors.white,
+              child: new Text('进入首页'),
+              onPressed: () {
+                  saveIsFirstOpen();
+              },
             )
-            
-        )
+          ),
+        ],
+      )
     );
   }
 }

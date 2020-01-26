@@ -21,8 +21,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_localizations:
-    sdk: flutter
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -32,9 +30,18 @@ dependencies:
   fluro: "^1.5.1" # 路由插件
   rxdart: ^0.22.0
   package_info: ^0.4.0+2 # 获取APP包的信息
+  connectivity: ^0.4.2 # 判断手机当前网络状况
+  dio: ^3.0.8 #请求
+  flutter_i18n: ^0.6.3 #国际化
+  shared_preferences: ^0.5.3+4 #localstorage存储
+  flutter_swiper: ^1.1.6 #轮播图
+  path_provider: ^1.5.1 #本地文件读取
+  cached_network_image: ^2.0.0 #缓存图片
 
 dev_dependencies:
   flutter_test:
+    sdk: flutter
+  flutter_localizations:
     sdk: flutter
 
 
@@ -49,21 +56,22 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
-    - assets/image/boot.jpg
-    - assets/image/ad_1.jpg
-    - assets/image/ad_2.jpg
-    - assets/image/ad_3.jpg
-    - assets/image/ad_4.jpg
-    - assets/image/2.0x/boot.jpg
-    - assets/image/2.0x/ad_1.jpg
-    - assets/image/2.0x/ad_2.jpg
-    - assets/image/2.0x/ad_3.jpg
-    - assets/image/2.0x/ad_4.jpg
-    - assets/image/3.0x/boot.jpg
-    - assets/image/3.0x/ad_1.jpg
-    - assets/image/3.0x/ad_2.jpg
-    - assets/image/3.0x/ad_3.jpg
-    - assets/image/3.0x/ad_4.jpg
+    - assets/image/boot/boot_1.jpg
+    - assets/image/boot/boot_2.jpg
+    - assets/image/boot/boot_3.jpg
+    - assets/image/boot/boot_4.jpg
+    - assets/image/boot/2.0x/boot_1.jpg
+    - assets/image/boot/2.0x/boot_2.jpg
+    - assets/image/boot/2.0x/boot_3.jpg
+    - assets/image/boot/2.0x/boot_4.jpg
+    - assets/image/boot/3.0x/boot_1.jpg
+    - assets/image/boot/3.0x/boot_2.jpg
+    - assets/image/boot/3.0x/boot_3.jpg
+    - assets/image/boot/3.0x/boot_4.jpg
+    - assets/image/splash/splash.jpg
+    - assets/image/splash/2.0x/splash.jpg
+    - assets/image/splash/3.0x/splash.jpg
+    - assets/i18n/
   # To add assets to your application, add an assets section, like this:
   # assets:
   #  - images/a_dot_burr.jpeg

@@ -9,7 +9,7 @@ void main() {
   Router router = Router();
   Routes.configureRoutes(router);
   Application.router = router;
-  runApp(MyApp());
+  runApp(MyApp(title:'newapp'));
 }
 
 // class MyApp extends StatelessWidget {

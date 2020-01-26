@@ -6,7 +6,6 @@ enum Env {
 
 class Config {
   static Env env;
-
   static String get apiHost {
     switch (env) {
       case Env.PROD:

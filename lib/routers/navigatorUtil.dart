@@ -21,6 +21,18 @@ class NavigatorUtil {
   static void goHomePage(BuildContext context) {
     Application.router.navigateTo(context, Routes.home, replace: true, transition: TransitionType.cupertino);
   }
+  // 跳转到引导页
+  static void goBootPage(BuildContext context) {
+    Application.router.navigateTo(context, Routes.boot, replace: true, transition: TransitionType.cupertino);
+  }
+  // 跳转到广告页
+  static void goADPage(BuildContext context) {
+    Application.router.navigateTo(context, Routes.advertising, replace: true, transition: TransitionType.cupertino);
+  }
+  // 跳转到点击广告页后的webview页面
+  static void goAdWebview(BuildContext context) {
+    Application.router.navigateTo(context, Routes.adwebview, replace: true, transition: TransitionType.cupertino);
+  }
 
   /// 跳转到 传参demo 页面
   // static void goDemoParamsPage(BuildContext context, String name, int age,

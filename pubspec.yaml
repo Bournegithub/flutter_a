@@ -37,13 +37,21 @@ dependencies:
   flutter_swiper: ^1.1.6 #轮播图
   path_provider: ^1.5.1 #本地文件读取
   cached_network_image: ^2.0.0 #缓存图片
+  # webview_flutter: ^0.3.19+5 #webview 
+  # 使用最新版webviewflutter有可能会报错
+  #   Xcode's output:
+  # ↳
+  #     warning: Capabilities for Runner may not function correctly because its entitlements use a placeholder team ID. To resolve this, select a development team in the build settings editor. (in target 'Runner')
+  #     /Users/yangxuhui/work/flutter/.pub-cache/hosted/pub.flutter-io.cn/webview_flutter-0.3.19+5/ios/Classes/FlutterWebView.m:105:29: error: property 'automaticallyAdjustsScrollIndicatorInsets' not found on object of type 'UIScrollView *'
+  #             _webView.scrollView.automaticallyAdjustsScrollIndicatorInsets = NO; 
+  # 原因 大概是XCode不支持ios13时，就会发生这种情况。该插件有ios13的代码，但较早的xcode版本无法识别这些命令，因此会引发错误。我的xcode版本为10.3,升级系统版本和XCode版本风险太大不可控，决定切换 flutter_webview_plugin: ^0.3.10+1
+  flutter_webview_plugin: ^0.3.10+1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

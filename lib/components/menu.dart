@@ -1,3 +1,4 @@
+// 底部菜单
 import 'package:flutter/material.dart';
 
 class MenuComponents extends StatefulWidget {
@@ -10,6 +11,7 @@ class MenuComponents extends StatefulWidget {
 class _MenuComponentsState extends State<MenuComponents> {
   @override
   void initState() {
+    super.initState();
   }
   Widget build(BuildContext context) {
     return Scaffold(

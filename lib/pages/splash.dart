@@ -21,8 +21,14 @@ class _SplashPageState extends State<SplashPage> {
   getCurrentLocal() {
     Future result1 = SharedPreferenceUtil.getString('currentLocal');
       result1.then((value){
-        // print("getStringResult=$value");
+        print("getStringResult=$value");
         currentLocal = value;
+    });
+    new Future.delayed(Duration.zero, () async {
+      await FlutterI18n.refresh(context, new Locale(currentLocal));
+      setState(() {
+        currentLang = FlutterI18n.currentLocale(context);
+      });
     });
   }
   getIsfirstOpen(){
@@ -43,12 +49,7 @@ class _SplashPageState extends State<SplashPage> {
     print('获取APP版本号+$version');
     getCurrentLocal();
     getIsfirstOpen();
-    new Future.delayed(Duration.zero, () async {
-      await FlutterI18n.refresh(context, new Locale(currentLocal));
-      setState(() {
-        currentLang = FlutterI18n.currentLocale(context);
-      });
-    });
+    
     Observable.timer(0, Duration(seconds: 2)).listen((_){
       print('Now isFirstOpen is $isFirstOpen');
       // 第一次启动app或者版本更新后第一次启动app进入引导页,正常进入广告页

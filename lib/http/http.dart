@@ -118,14 +118,19 @@
 // }
 
 import 'package:dio/dio.dart';
+import 'package:connectivity/connectivity.dart';
+import 'dart:async';
 
 class Http{
   static Http instance;
   static String token;
   static Dio _dio;
+  Future<bool> isConnected() async {
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    return connectivityResult != ConnectivityResult.none;
+  }
   String _contentType = 'application/json';
   BaseOptions _options;
-
   static Http getInstance(){
     print("getInstance");
     if(instance == null){
@@ -154,11 +159,16 @@ class Http{
     );
 
     _dio = new Dio(_options);
-    _dio.interceptors.add(InterceptorsWrapper(onRequest: (RequestOptions options) {
-      print("请求之前");
+    _dio.interceptors.add(InterceptorsWrapper(onRequest: (RequestOptions options) async {
+      var currentConnected = await isConnected();
       // 检查当前网络状况之后再处理
-      // Do something before request is sent
-      return options; //continue
+      print("请求之前");
+      print('currentConnected: $currentConnected');
+      if(currentConnected) {
+        return options;
+      } else {
+        
+      }
     }, onResponse: (Response response) {
       print("响应之前 ----- $response");
       // Do something with response data

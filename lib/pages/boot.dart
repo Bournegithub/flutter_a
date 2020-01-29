@@ -21,6 +21,7 @@ class _BootPageState extends State<BootPage> {
     'assets/image/boot/boot_2.jpg',
     'assets/image/boot/boot_1.jpg',
   ];
+  var timer;
   int count = 5;
   final period = const Duration(seconds: 1);
   goHome(){
@@ -46,7 +47,7 @@ class _BootPageState extends State<BootPage> {
   @override
   void initState() {
     super.initState();
-    Timer.periodic(period, (timer) {
+    timer = new Timer.periodic(period, (timer) {
       //到时回调
       print('afterTimer= $count');
       print('timer: $timer');
@@ -113,5 +114,10 @@ class _BootPageState extends State<BootPage> {
         ],
       )
     );
+  }
+  @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
   }
 }

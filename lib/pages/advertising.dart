@@ -14,11 +14,15 @@ class ADPage extends StatefulWidget {
 
 //  请注意 'with TickerProviderStateMixin', 不加的话动画vsync参数报错
 class _ADPageState extends State <ADPage> with TickerProviderStateMixin {
-  int count = 3;
+  int count = 20;
   final period = const Duration(seconds: 1);
+  var timer;
   // AnimationController controller;
   goHome(){
     NavigatorUtil.goHomePage(context);
+  }
+  goWebview() {
+    NavigatorUtil.goAdWebview(context);
   }
   _getAdImage() async {
     var result = await Service.getAD();
@@ -29,7 +33,7 @@ class _ADPageState extends State <ADPage> with TickerProviderStateMixin {
   @override
   void initState(){
     super.initState();
-    Timer.periodic(period, (timer) {
+    timer = new Timer.periodic(period, (timer) {
       //到时回调
       print('afterTimer= $count');
       print('timer: $timer');
@@ -76,7 +80,14 @@ class _ADPageState extends State <ADPage> with TickerProviderStateMixin {
               top: 0,
               left: 0,
               bottom: 0,
-              child: new Image.network('https://img.zcool.cn/community/01d4545deb307ca801213853c06750.jpg@2o.jpg', fit: BoxFit.fill),
+              child: GestureDetector( // 如果 widget 本身不支持事件监测，则在外面包裹一个 GestureDetector
+                child: new Image.network('https://img.zcool.cn/community/01d4545deb307ca801213853c06750.jpg@2o.jpg',
+                  fit: BoxFit.fill,
+                ),
+                onTap: () {
+                  goWebview();
+                }
+              ),
               // child: ScaleTransition(
               //   alignment: Alignment.center,
               //   scale: controller,
@@ -111,9 +122,10 @@ class _ADPageState extends State <ADPage> with TickerProviderStateMixin {
       )
     );
   }
-  // @override
-  // void dispose() {
-  //   super.dispose();
-  //   controller.dispose();
-  // }
+  @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
+    // controller.dispose();
+  }
 } 

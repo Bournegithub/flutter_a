@@ -4,9 +4,7 @@ import 'package:dio/dio.dart';
 import 'dart:async';
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
-  final String title;
-  
-  
+  final String title;  
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -20,12 +18,12 @@ class _HomePageState extends State<HomePage> {
     return userInfo;
   }
   void initState() {
-    getUserInfo().then((val){
-      print('val-----$val');
-      setState((){
-        name = userInfo['name'];
-      });
-    });
+    // getUserInfo().then((val){
+    //   print('val-----$val');
+    //   setState((){
+    //     name = userInfo['name'];
+    //   });
+    // });
     // setState((){
     //     name = userInfo['name'];
     // });

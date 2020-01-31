@@ -8,4 +8,6 @@ class ApiList {
   static String boot = '/boot';
   // 获取app最新版本号
   static String version = '/checkversion';
+  // 获取列表数据 
+  static String list = '/list';
 }

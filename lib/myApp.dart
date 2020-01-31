@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'routers/application.dart';
-import 'package:flutter_i18n/flutter_i18n_delegate.dart';
+// import 'package:flutter_i18n/flutter_i18n_delegate.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'utils/sharedPreferenceUtil.dart';
 import 'utils/package_util.dart';
+
 
 class MyApp extends StatelessWidget {
   MyApp({Key key, this.title}) : super(key: key);
@@ -30,11 +31,19 @@ class MyApp extends StatelessWidget {
         // print('assets/i18n/$local');
       },
       //  国际化的委托
-      localizationsDelegates: [
-        FlutterI18nDelegate(
-            useCountryCode: false, fallbackFile: local, path: 'assets/i18n'),
+      // localizationsDelegates: [
+      //   FlutterI18nDelegate(
+      //       useCountryCode: false, fallbackFile: local, path: 'assets/i18n'),
+      //   GlobalMaterialLocalizations.delegate,
+      //   GlobalWidgetsLocalizations.delegate
+      // ],
+      localizationsDelegates: [                             //此处
         GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      supportedLocales: [                                   //此处
+        const Locale('zh','CH'),
+        const Locale('en','US'),
       ],
     );
   }

@@ -45,8 +45,9 @@ dependencies:
   #     /Users/yangxuhui/work/flutter/.pub-cache/hosted/pub.flutter-io.cn/webview_flutter-0.3.19+5/ios/Classes/FlutterWebView.m:105:29: error: property 'automaticallyAdjustsScrollIndicatorInsets' not found on object of type 'UIScrollView *'
   #             _webView.scrollView.automaticallyAdjustsScrollIndicatorInsets = NO; 
   # 原因 大概是XCode不支持ios13时，就会发生这种情况。该插件有ios13的代码，但较早的xcode版本无法识别这些命令，因此会引发错误。我的xcode版本为10.3,升级系统版本和XCode版本风险太大不可控，决定切换 flutter_webview_plugin: ^0.3.10+1
-  flutter_webview_plugin: ^0.3.10+1
-
+  flutter_webview_plugin: ^0.3.10+1 #webview
+  flutter_easyrefresh: ^2.0.8
+  flutter_spinkit: "^4.1.1"
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -79,6 +80,30 @@ flutter:
     - assets/image/splash/splash.jpg
     - assets/image/splash/2.0x/splash.jpg
     - assets/image/splash/3.0x/splash.jpg
+    - assets/image/icon/a_0.png
+    - assets/image/icon/a_1.png
+    - assets/image/icon/b_0.png
+    - assets/image/icon/b_1.png
+    - assets/image/icon/c_0.png
+    - assets/image/icon/c_1.png
+    - assets/image/icon/d_0.png
+    - assets/image/icon/d_1.png
+    - assets/image/icon/2.0x/a_0.png
+    - assets/image/icon/2.0x/a_1.png
+    - assets/image/icon/2.0x/b_0.png
+    - assets/image/icon/2.0x/b_1.png
+    - assets/image/icon/2.0x/c_0.png
+    - assets/image/icon/2.0x/c_1.png
+    - assets/image/icon/2.0x/d_0.png
+    - assets/image/icon/2.0x/d_1.png
+    - assets/image/icon/3.0x/a_0.png
+    - assets/image/icon/3.0x/a_1.png
+    - assets/image/icon/3.0x/b_0.png
+    - assets/image/icon/3.0x/b_1.png
+    - assets/image/icon/3.0x/c_0.png
+    - assets/image/icon/3.0x/c_1.png
+    - assets/image/icon/3.0x/d_0.png
+    - assets/image/icon/3.0x/d_1.png
     - assets/i18n/
   # To add assets to your application, add an assets section, like this:
   # assets:

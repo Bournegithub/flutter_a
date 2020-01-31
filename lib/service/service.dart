@@ -10,7 +10,7 @@ final baseUrl = Config.apiHost;
 class Service {
   static login(parms) async {
     try {
-      var result = await Http().post(baseUrl + ApiList.login,data: parms);
+      var result = await Http().post(baseUrl + ApiList.login, data: parms);
       int code = result['code'];
       var data = result['data'];
       if (code == 0) {
@@ -50,6 +50,20 @@ class Service {
       }
     } catch (e) {
       print('await报错--- $e');
+    }
+  }
+  static getList(parms) async {
+    try {
+      var result = await Http().post(baseUrl + ApiList.list, data: parms);
+      int code = result['code'];
+      var data = result['data'];
+      if (code == 0) {
+        return data;
+      } else {
+        // 外层拦截操作
+      }
+    } catch (e) {
+      print('list接口/await报错--- $e');
     }
   }
 }

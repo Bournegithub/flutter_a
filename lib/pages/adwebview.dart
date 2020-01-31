@@ -26,7 +26,7 @@ class _AdWebviewPageState extends State<AdWebviewPage> {
     return Scaffold(
       appBar: new AppBar(
         title: new Center(
-              child: new Text('Hello, world!'),
+              child: new Text('广告h5页面'),
             ),
         leading: new IconButton(
             tooltip: 'Previous choice',

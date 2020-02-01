@@ -76,16 +76,14 @@ class _SplashPageState extends State<SplashPage> {
                 child: new Column(
                   children: <Widget>[
                     Text(
-                      AppLocalizations.of(context).taskTitle,
-                      // 'without',
+                      AppLocalizations.of(context).appTitle,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 36.0,
                       )
                     ),
                     Text(
-                      // FlutterI18n.translate(context, 'spalshSlogan'),
-                      'everything is nothing',
+                      AppLocalizations.of(context).appSlogan,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 20.0

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_a/i18n/applocalizations.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import '../components/listItem.dart';
-
+import '../service/service.dart';
 
 class ListPage extends StatefulWidget {
   @override
@@ -13,9 +13,19 @@ class ListPage extends StatefulWidget {
 class _ListPageState extends State <ListPage>  {
   // 条目总数
   int _count = 0;
+  int _page = 1;
+  List <Object> _listData ;
+  _getList () {
+    Future result = Service.getList({'count': _count, 'page': _page});
+    result.then((val){
+      _listData = val;
+      print('getlist result is: $val');
+    });
+  }
   @override
   void initState(){
     super.initState();
+    _getList();
   }
   Widget build(BuildContext context) {
     return Container(
@@ -45,7 +55,7 @@ class _ListPageState extends State <ListPage>  {
                       ),
                     ),
                     Container(
-                      child: Text('正在加载'),
+                      child: Text(AppLocalizations.of(context).loading),
                     )
                   ],
                 ),
@@ -56,7 +66,7 @@ class _ListPageState extends State <ListPage>  {
               SliverList(
                 delegate: SliverChildBuilderDelegate(
                   (context, index) {
-                    return SampleListItem();
+                    return Item(index);
                   },
                   childCount: _count,
                 ),
@@ -66,7 +76,7 @@ class _ListPageState extends State <ListPage>  {
             await Future.delayed(Duration(seconds: 2), () {
               if (mounted) {
                 setState(() {
-                  _count = 10;
+                  _count = 5;
                 });
               }
             });
@@ -75,7 +85,7 @@ class _ListPageState extends State <ListPage>  {
             await Future.delayed(Duration(seconds: 2), () {
               if (mounted) {
                 setState(() {
-                  _count += 10;
+                  _count += 5;
                 });
               }
             });
@@ -84,9 +94,26 @@ class _ListPageState extends State <ListPage>  {
       )
     );
   }
+
+  Widget Item(int index) {
+    Object info = _listData[index];
+    // var typeaa = typedefinfo;
+    // String name = info.name;
+    return Container(
+      width: 60.0,
+      height: 80.0,
+      child: Center(
+        child: Text('$info'),
+      ),
+      color: index%2==0 ? Colors.grey[300] : Colors.transparent,
+    );
+  }
   @override
   void dispose() {
     super.dispose();
   }
+}
+
+mixin JSON {
 } 
 

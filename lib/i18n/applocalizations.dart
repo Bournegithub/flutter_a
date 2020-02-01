@@ -5,44 +5,42 @@ class AppLocalizations {
   final Locale locale;
   AppLocalizations(this.locale);
 
-
   Map<String, Map<String, String>> _localizedValues = {
     'en': {
-      'task title': 'Flutter Demo',
-      'titlebar title': 'Flutter Demo Home Page',
-      'click tip': 'You have pushed the button this many times:',
-      'inc':'Increment'
+      'apptitle' : 'Demo',
+      'appslogan': 'Nothing is important',
+      'loading': 'loading...',
+      'cancle': 'Cancle',
+      'sure': 'OK',
+      'login': 'Login',
+      'register': 'Register',
+      'submit': 'Submit',
+      'listpage': 'List',
     },
     'zh': {
-      'task title': 'Flutter 示例',
-      'titlebar title': 'Flutter 示例主页面',
-      'click tip': '你一共点击了这么多次按钮：',
-      'inc':'增加'
+      'apptitle' : '示例',
+      'appslogan': '无所无惧',
+      'loading': '正在加载...',
+      'cancle': '取消',
+      'sure': '确定',
+      'login': '登录',
+      'register': '注册',
+      'submit': '提交',
+      'listpage': '列表',
     }
   };
 
-
-
-  get taskTitle{
-    return _localizedValues[locale.languageCode]['task title'];
-  }
-
-  get titleBarTitle{
-    return _localizedValues[locale.languageCode]['titlebar title'];
-  }
-
-  get clickTop{
-    return _localizedValues[locale.languageCode]['click tip'];
-  }
+  get appTitle {return _localizedValues[locale.languageCode]['apptitle'];}
+  get appSlogan {return _localizedValues[locale.languageCode]['appslogan'];}
+  get loading {return _localizedValues[locale.languageCode]['loading'];}
+  get cancle {return _localizedValues[locale.languageCode]['cancle'];}
+  get sure {return _localizedValues[locale.languageCode]['sure'];}
+  get login {return _localizedValues[locale.languageCode]['login'];}
+  get register {return _localizedValues[locale.languageCode]['register'];}
+  get submit {return _localizedValues[locale.languageCode]['submit'];}
+  get listPage {return _localizedValues[locale.languageCode]['listpage'];}
   
-  get inc{
-    return _localizedValues[locale.languageCode]['inc'];
-  }
   static AppLocalizations of(BuildContext context){
     return Localizations.of(context, AppLocalizations);
   }
-  getlocal (val) {
-    this.inc;
-  }
-  
 }

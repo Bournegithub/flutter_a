@@ -5,6 +5,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'utils/sharedPreferenceUtil.dart';
 import 'utils/package_util.dart';
 import 'i18n/appLocalizationsDelegate.dart';
+import 'package:flutter_easyrefresh/easy_refresh.dart';
 
 class MyApp extends StatelessWidget {
   MyApp({Key key, this.title}) : super(key: key);
@@ -42,8 +43,8 @@ class MyApp extends StatelessWidget {
       // ],
       // 区域分辨回调
       localeResolutionCallback: (local, support) {
-        print('当前local: $local');
-        print('当前support: $support');
+        print('当前语言设置: $local');
+        // print('当前support: $support');
         // 借区域回调放一下package的初始化.
         PackageUtil.init();
         if(support.contains(local)){
@@ -57,14 +58,15 @@ class MyApp extends StatelessWidget {
         
       },
       
-      localizationsDelegates: [                             //此处
+      localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         AppLocalizationsDelegate.delegate,
+        GlobalEasyRefreshLocalizations.delegate,
       ],
-      supportedLocales: [                                   //此处
+      supportedLocales: [    
+        const Locale('en','US'),                               
         const Locale('zh','CH'),
-        const Locale('en','US'),
       ],
     );
   }

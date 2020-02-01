@@ -1,7 +1,5 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
-import '../service/service.dart';
+import '../utils/package_util.dart';
 import 'dart:async';
 import 'list.dart';
 import '../utils/corlors_util.dart';
@@ -27,8 +25,14 @@ class _HomePageState extends State<HomePage> {
   List appBarShow = [false, false, false, true];
   //对应页面appbar显示的内容
   List appBarText = ['hello,page1', 'hello,page2', 'hello,page3', 'hello,page4' ];
+
+  getAppInfo() async {
+    var result = await PackageUtil.getVersionString();
+    print('获取APP版本号+$result');
+  }
   void initState() {
     super.initState();
+    getAppInfo();
   }
   @override
   Widget build(BuildContext context) {
@@ -50,7 +54,7 @@ class _HomePageState extends State<HomePage> {
             child: Icon(
               Icons.add,
               color: Colors.white,
-            )),
+            ), onPressed: () {},),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         //和底栏进行融合
         bottomNavigationBar: BottomAppBar(

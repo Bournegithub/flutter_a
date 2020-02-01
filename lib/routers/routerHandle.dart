@@ -8,6 +8,7 @@ import '../pages/adwebview.dart'; // 点击广告页后打开的webview页面
 import '../pages/splash.dart';  // 启动页 正常加载时使用
 import '../pages/boot.dart'; // 引导页 首次启动或者版本更新时启用
 import '../pages/home.dart';  // 首页
+import '../pages/login.dart'; // 登录
 
 // 启动页
 var splashHandler = new Handler(
@@ -33,4 +34,9 @@ var adHandler = new Handler(
 var adwebviewHandler = new Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
     return new AdWebviewPage();
+});
+
+var loginHandler = new Handler(
+  handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+    return new LoginPage();
 });

@@ -10,6 +10,7 @@ class Routes {
   static String advertising = '/advertising';
   static String home = '/home';
   static String adwebview = '/adWebview';
+  static String login = '/login';
   static void configureRoutes(Router router) {
     _router = router;
     router.notFoundHandler = new Handler(
@@ -22,6 +23,7 @@ class Routes {
     _router.define(advertising, handler: adHandler);
     _router.define(home, handler: homeHandler);
     _router.define(adwebview, handler: adwebviewHandler);
+    _router.define(login, handler: loginHandler);
   }
   static navigateTo(BuildContext context, String path) {
     _router.navigateTo(context, path);

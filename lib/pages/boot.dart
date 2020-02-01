@@ -39,7 +39,7 @@ class _BootPageState extends State<BootPage> {
   saveIsFirstOpen() {
     Future<bool> result = SharedPreferenceUtil.setBool('isFirstOpen', false);
     result.then((value){
-      print('isFirstOpen已经存储');
+      // print('isFirstOpen已经存储');
       goHome();
     });
   }
@@ -49,7 +49,7 @@ class _BootPageState extends State<BootPage> {
     super.initState();
     timer = new Timer.periodic(period, (timer) {
       //到时回调
-      print('afterTimer= $count');
+      // print('afterTimer= $count');
       print('timer: $timer');
       count--;
       setState(() {

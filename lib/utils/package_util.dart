@@ -5,7 +5,7 @@ class PackageUtil {
   static PackageInfo packageInfo;
 
   //初始化
-  static init() async{
+  static init() async {
     packageInfo = await PackageInfo.fromPlatform();
     print('packageInfo: $packageInfo');
   }

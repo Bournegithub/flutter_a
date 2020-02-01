@@ -1,10 +1,9 @@
 // 启动页
 import 'package:flutter/material.dart';
-import 'package:flutter_a/utils/package_util.dart';
 import 'package:rxdart/rxdart.dart';
 import '../routers/navigatorUtil.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 import '../utils/sharedPreferenceUtil.dart';
+import '../i18n/applocalizations.dart';
 
 class SplashPage extends StatefulWidget {
   SplashPage({Key key, this.title}) : super(key: key);
@@ -18,19 +17,6 @@ class _SplashPageState extends State<SplashPage> {
   String currentLocal;
   // 是否第一次打开，用来调试启动页之后跳转引导页还是广告页
   bool isFirstOpen = true;
-  getCurrentLocal() {
-    Future result1 = SharedPreferenceUtil.getString('currentLocal');
-      result1.then((value){
-        print("getStringResult=$value");
-        currentLocal = value;
-    });
-    new Future.delayed(Duration.zero, () async {
-      await FlutterI18n.refresh(context, new Locale(currentLocal));
-      setState(() {
-        currentLang = FlutterI18n.currentLocale(context);
-      });
-    });
-  }
   getIsfirstOpen(){
     Future result = SharedPreferenceUtil.getBool('isFirstOpen');
     result.then((value){
@@ -42,14 +28,15 @@ class _SplashPageState extends State<SplashPage> {
         // currentLocal = value;
     });
   }
+  // getprivate() {
+  //   var test = TestValue('A');
+  //   print('paivate-test is : $test');
+  // }
+  
   @override
   void initState() {
     super.initState();
-    String version = PackageUtil.getVersionString();
-    print('获取APP版本号+$version');
-    getCurrentLocal();
     getIsfirstOpen();
-    
     Observable.timer(0, Duration(seconds: 2)).listen((_){
       print('Now isFirstOpen is $isFirstOpen');
       // 第一次启动app或者版本更新后第一次启动app进入引导页,正常进入广告页
@@ -89,7 +76,7 @@ class _SplashPageState extends State<SplashPage> {
                 child: new Column(
                   children: <Widget>[
                     Text(
-                      FlutterI18n.translate(context, 'spalshTitle'),
+                      AppLocalizations.of(context).taskTitle,
                       // 'without',
                       style: TextStyle(
                         color: Colors.white,
@@ -97,8 +84,8 @@ class _SplashPageState extends State<SplashPage> {
                       )
                     ),
                     Text(
-                      FlutterI18n.translate(context, 'spalshSlogan'),
-                      // 'everything is nothing',
+                      // FlutterI18n.translate(context, 'spalshSlogan'),
+                      'everything is nothing',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 20.0

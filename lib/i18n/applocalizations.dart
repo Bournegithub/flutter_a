@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 class AppLocalizations {
 
   final Locale locale;
-
   AppLocalizations(this.locale);
 
-  static Map<String, Map<String, String>> _localizedValues = {
+
+  Map<String, Map<String, String>> _localizedValues = {
     'en': {
       'task title': 'Flutter Demo',
       'titlebar title': 'Flutter Demo Home Page',
@@ -20,6 +20,8 @@ class AppLocalizations {
       'inc':'增加'
     }
   };
+
+
 
   get taskTitle{
     return _localizedValues[locale.languageCode]['task title'];
@@ -39,4 +41,8 @@ class AppLocalizations {
   static AppLocalizations of(BuildContext context){
     return Localizations.of(context, AppLocalizations);
   }
+  getlocal (val) {
+    this.inc;
+  }
+  
 }

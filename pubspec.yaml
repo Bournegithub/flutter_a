@@ -32,7 +32,7 @@ dependencies:
   package_info: ^0.4.0+2 # 获取APP包的信息
   connectivity: ^0.4.2 # 判断手机当前网络状况
   dio: ^3.0.8 #请求
-  flutter_i18n: ^0.6.3 #国际化
+  # flutter_i18n: ^0.6.3 #国际化
   shared_preferences: ^0.5.3+4 #localstorage存储
   flutter_swiper: ^1.1.6 #轮播图
   path_provider: ^1.5.1 #本地文件读取

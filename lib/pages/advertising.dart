@@ -24,10 +24,11 @@ class _ADPageState extends State <ADPage> with TickerProviderStateMixin {
   goWebview() {
     NavigatorUtil.goAdWebview(context);
   }
-  _getAdImage() async {
-    var result = await Service.getAD();
+  _getAdImage() {
+
+    Future result =  Service.getAD();
     result.then((value){
-      print('adimg: $result');
+      print('adimg: $value');
     });
   }
   @override
@@ -35,8 +36,7 @@ class _ADPageState extends State <ADPage> with TickerProviderStateMixin {
     super.initState();
     timer = new Timer.periodic(period, (timer) {
       //到时回调
-      print('afterTimer= $count');
-      print('timer: $timer');
+      // print('afterTimer= $count');
       count--;
       setState(() {
         count;
@@ -50,7 +50,7 @@ class _ADPageState extends State <ADPage> with TickerProviderStateMixin {
     });
     Future<bool> result = SharedPreferenceUtil.setBool('isFirstOpen', true);
     result.then((value){
-      print('isFirstOpen已经存储');
+      // print('isFirstOpen已经存储');
     });
     _getAdImage();
     // controller = AnimationController(duration: const Duration(seconds: 5), vsync: this);

@@ -11,40 +11,34 @@ class Service {
   static login(parms) async {
     try {
       var result = await Http().post(baseUrl + ApiList.login, data: parms);
-      int code = result['code'];
-      var data = result['data'];
-      if (code == 0) {
-        return data;
+      ResultData endResult = ResultData.fromJson(result);
+      // print('Service- endResult.code: ${endResult.code}');
+      // print('Service- endResult.status: ${endResult.status}');
+      // print('Service- endResult.env: ${endResult.env}');
+      if (endResult.code == 0) {
+        return endResult.data;
       } else {
         // 外层拦截操作
       }
     } catch (e) {
       print('await报错--- $e');
     }
-    
-    // final responseJson = json.decode(response);
-    // Map<String, dynamic> newTitle = responseJson ;
-    // print(newTitle['title']);
-    // print('aaaaa');
-    // final result = await Http().post(baseUrl + ApiList.login);
-    // print('bbbb');
-    // print(result);
-    // // http().post的返回的是类似于前端的promise对象，在这里需要处理一下
-    // result.then((res) {
-    //   print('ccccc');
-    //   print(res);
-    //   return res;
-    // });
-    // return reslut;
   }
   static getAD() async {
     try {
       var result = await Http().post(baseUrl + ApiList.ad,data: {'ad':1});
-      int code = result['code'];
-      var data = result['data'];
+      ResultData endResult = ResultData.fromJson(result);
+      print('Service- endResult.code: ${endResult.code}');
+      print('Service- endResult.status: ${endResult.status}');
+      print('Service- endResult.env: ${endResult.env}');
+      if(endResult.code == 0) {
+        return endResult.data;
+      } else {
+        // 异常处理
+      }
       print('reslut is $result');
-      if (code == 0) {
-        return data;
+      if (result.code == 0) {
+        return result.data;
       } else {
         // 外层拦截操作
       }
@@ -53,14 +47,18 @@ class Service {
     }
   }
   static getList(parms) async {
+    
     try {
       var result = await Http().post(baseUrl + ApiList.list, data: parms);
-      int code = result['code'];
-      var data = result['data'];
-      if (code == 0) {
-        return data;
+      print('Service- result: $result');
+      ResultData endResult = ResultData.fromJson(result);
+      print('Service- endResult.code: ${endResult.code}');
+      print('Service- endResult.status: ${endResult.status}');
+      print('Service- endResult.env: ${endResult.env}');
+      if(endResult.code == 0) {
+        return endResult.data;
       } else {
-        // 外层拦截操作
+        // 异常处理
       }
     } catch (e) {
       print('list接口/await报错--- $e');

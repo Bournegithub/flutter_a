@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:connectivity/connectivity.dart';
 import 'dart:async';
-import '../model/outResult.dart';
 
 class Http{
   static Http instance;
@@ -44,7 +43,8 @@ class Http{
     _dio.interceptors.add(InterceptorsWrapper(onRequest: (RequestOptions options) async {
       var currentConnected = await isConnected();
       // 检查当前网络状况之后再处理
-      print("请求之前");
+      print("请求之前params: ${options.queryParameters.toString()}");
+      print("请求之前header: ${options.headers.toString()}");
       print('currentConnected: $currentConnected');
       if(currentConnected) {
         return options;
@@ -74,6 +74,8 @@ class Http{
       print('post error---------$e');
       formatError(e);
     }
+    print('get--response: $response');
+    print('get--response.data: ${response.data}');
     return response.data;
   }
 	
@@ -83,13 +85,12 @@ class Http{
     Response response;
     try{
       response = await _dio.post(url,queryParameters: data);
-      print('打印response-- $response');
     }on DioError catch(e){
       print('post error---------$e');
       formatError(e);
     }
-    print('打印response-- $response');
-    print('打印response.data-- ${response.data}');
+    print('post--response: $response');
+    print('post--response.data: ${response.data}');
     return response.data;
   }
   void formatError(DioError e) {

@@ -1,8 +1,15 @@
 class ResultData {
-  var data;
-  bool isSuccess;
   int code;
-  var headers;
-
-  ResultData(this.data, this.isSuccess, this.code, {this.headers});
+  String status;
+  String env;
+  var data;
+  ResultData({this.code, this.status, this.env, this.data});
+  ResultData.fromJson(Map<String, dynamic> json) {
+    code = json['code'];
+    status = json['status'];
+    env = json['env'];
+    if (json['data'] != null) {
+      data = json['data'];
+    }
+  }
 }

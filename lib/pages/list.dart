@@ -3,6 +3,7 @@ import 'package:flutter_a/i18n/applocalizations.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../service/service.dart';
+import '../model/listResult.dart';
 
 class ListPage extends StatefulWidget {
   @override
@@ -96,14 +97,20 @@ class _ListPageState extends State <ListPage>  {
   }
 
   Widget Item(int index) {
-    Object info = _listData[index];
-    // var typeaa = typedefinfo;
-    // String name = info.name;
+    var info = _listData[index];
+    ListResult endInfo = ListResult.fromJson(info);
+    print('endInfo: $endInfo');
+    print('endInfo.name: ${endInfo.name}');
+    print('endInfo.phone: ${endInfo.phone}');
+    print('endInfo.token: ${endInfo.token}');
+    print('endInfo.address: ${endInfo.address}');
+    print('endInfo.company: ${endInfo.company}');
+    print('endInfo.avatar: ${endInfo.avatar}');
     return Container(
       width: 60.0,
       height: 80.0,
       child: Center(
-        child: Text('$info'),
+        child: Text('${endInfo.name}'),
       ),
       color: index%2==0 ? Colors.grey[300] : Colors.transparent,
     );
@@ -113,7 +120,4 @@ class _ListPageState extends State <ListPage>  {
     super.dispose();
   }
 }
-
-mixin JSON {
-} 
 

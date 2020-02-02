@@ -15,18 +15,27 @@ class _ListPageState extends State <ListPage>  {
   // 条目总数
   int _count = 0;
   int _page = 1;
-  List <Object> _listData ;
-  _getList () {
-    Future result = Service.getList({'count': _count, 'page': _page});
+  int _pageSize = 10;
+  List <Object> _listData = [];
+  _getList (_page, _pageSize) {
+    var parms = {
+      'page': _page,
+      'pagesize': _pageSize
+    };
+    Future result = Service.getList(parms);
     result.then((val){
-      _listData = val;
-      print('getlist result is: $val');
+      print('val is: $val');
+      print('val.length: ${val.length}');
+      _listData.addAll(val);
+      // _listData.addAll(val);
+      print('getlist result is: $_listData');
+      print('getlist result.length is: ${_listData.length}');
     });
   }
   @override
   void initState(){
     super.initState();
-    _getList();
+    // _getList(_page, _pageSize);
   }
   Widget build(BuildContext context) {
     return Container(
@@ -74,19 +83,24 @@ class _ListPageState extends State <ListPage>  {
               ),
             ],
           onRefresh: () async {
-            await Future.delayed(Duration(seconds: 2), () {
+            _listData = [];
+            await  _getList(_page, _pageSize);
+            await Future.delayed(Duration(seconds: 1), () {
               if (mounted) {
                 setState(() {
-                  _count = 5;
+                  _count = 10;
+                  _page = 1;
                 });
               }
             });
           },
           onLoad: () async {
-            await Future.delayed(Duration(seconds: 2), () {
+            _getList(_page, _pageSize);
+            await Future.delayed(Duration(seconds: 1), () {
               if (mounted) {
                 setState(() {
-                  _count += 5;
+                  _count += 10;
+                  _page += 1;
                 });
               }
             });
@@ -99,21 +113,101 @@ class _ListPageState extends State <ListPage>  {
   Widget Item(int index) {
     var info = _listData[index];
     ListResult endInfo = ListResult.fromJson(info);
-    print('endInfo: $endInfo');
-    print('endInfo.name: ${endInfo.name}');
-    print('endInfo.phone: ${endInfo.phone}');
-    print('endInfo.token: ${endInfo.token}');
-    print('endInfo.address: ${endInfo.address}');
-    print('endInfo.company: ${endInfo.company}');
-    print('endInfo.avatar: ${endInfo.avatar}');
-    return Container(
-      width: 60.0,
-      height: 80.0,
-      child: Center(
-        child: Text('${endInfo.name}'),
-      ),
-      color: index%2==0 ? Colors.grey[300] : Colors.transparent,
-    );
+    // print('endInfo: $endInfo');
+    // print('endInfo.name: ${endInfo.name}');
+    // print('endInfo.phone: ${endInfo.phone}');
+    // print('endInfo.token: ${endInfo.token}');
+    // print('endInfo.address: ${endInfo.address}');
+    // print('endInfo.company: ${endInfo.company}');
+    // print('endInfo.avatar: ${endInfo.avatar}');
+    return Card(
+            child: Container(
+              child: Row(
+                children: <Widget>[
+                  Container(
+                    width: 80.0,
+                    height: 90.0,
+                    child: new Image.network(
+                      endInfo.avatar,
+                    ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                        padding: EdgeInsets.all(
+                          10.0,
+                        ),
+                        color: Colors.white,
+                        child: Column(
+                          children: <Widget>[
+                            Row(
+                              children: <Widget>[
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Container(
+                                      width: 120.0,
+                                      height: 18.0,
+                                      // color: Colors.grey[800],
+                                      child: Text(endInfo.name),
+                                    ),
+                                    Container(
+                                      width: 60.0,
+                                      height: 18.0,
+                                      margin: EdgeInsets.only(top: 8.0),
+                                      // color: Colors.grey[200],
+                                      child: Text(endInfo.phone),
+                                    ),
+                                  ],
+                                ),
+                                Expanded(
+                                  flex: 1,
+                                  child: SizedBox(),
+                                ),
+                                Icon(
+                                  Icons.star,
+                                  color: Colors.grey[200],
+                                )
+                              ],
+                            ),
+                            SizedBox(
+                              height: 8.0,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Container(
+                                  width: double.infinity,
+                                  height: 18.0,
+                                  // color: Colors.grey[200],
+                                  child: Text(endInfo.address),
+                                ),
+                                SizedBox(
+                                  height: 4.0,
+                                ),
+                                Container(
+                                  width: double.infinity,
+                                  height: 18.0,
+                                  // color: Colors.grey[200],
+                                  child: Text(endInfo.company),
+                                ),
+                              ],
+                            ),
+                          ],
+                        )),
+                  ),
+                ],
+              ),
+            ),
+          );
+    // return Container(
+    //   width: double.infinity,
+    //   height: 80.0,
+    //   child: Center(
+    //     child: Text('${endInfo.name}'),
+    //   ),
+    //   color: index%2==0 ? Colors.grey[300] : Colors.transparent,
+    // );
   }
   @override
   void dispose() {

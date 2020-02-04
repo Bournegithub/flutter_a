@@ -10,4 +10,6 @@ class ApiList {
   static String version = '/checkversion';
   // 获取列表数据 
   static String list = '/list';
+  // 获取用户信息
+  static String userInfo = '/userInfo';
 }

@@ -2,44 +2,69 @@ import 'package:flutter/material.dart';
 import '../utils/package_util.dart';
 import 'list.dart';
 import '../utils/corlors_util.dart';
+import '../i18n/applocalizations.dart';
+import 'about.dart';
+import '../routers/model/homeParams.dart';
+import '../utils/fluro_convert_util.dart';
+import 'compoents.dart';
+import 'native.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key key, this.title}) : super(key: key);
-  final String title;
+  final int index;
+  final String paramsJson;
+  HomePage({this.index, this.paramsJson});
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  
   // 创建数组, 引入当前页面
-  List<Widget> pageList = [ListPage(), ListPage(), ListPage(), ListPage()]; 
-  int currentPage = 0; // 当前页面index
+  List<Widget> pageList = [ListPage(), CompoentsPage(), NativePage(), AboutPage()]; 
+  int currentPage; // 当前页面index
   // 底部菜单item文字
-  List titles = ['列表', '页面2', '页面3', '页面4'];
+  List titles = ['List', 'Compoents', 'Native', 'About'];
+  // List titles = [];
   // 底部菜单item图片正常状态
   List normalImgUrls = ['assets/image/icon/a_0.png', 'assets/image/icon/b_0.png', 'assets/image/icon/c_0.png', 'assets/image/icon/d_0.png'];
   // 底部菜单item图片选中状态
   List selectedImgUrls = ['assets/image/icon/a_1.png', 'assets/image/icon/b_1.png', 'assets/image/icon/c_1.png', 'assets/image/icon/d_1.png'];
   // 对应页面是否显示appbar
-  List appBarShow = [false, false, false, true];
+  List appBarShow = [false, true, true, true];
   //对应页面appbar显示的内容
-  List appBarText = ['hello,page1', 'hello,page2', 'hello,page3', 'hello,page4' ];
-
+  List appBarText = ['hello,page1', 'Compoents', 'Native', 'About' ];
+  
   getAppInfo() async {
     var result = await PackageUtil.getVersionString();
     print('获取APP版本号+$result');
   }
+  setTitle() {
+    print('AppLocalizations.of(context).listPage: ${AppLocalizations.of(context).listPage}');
+  }
   void initState() {
     super.initState();
     getAppInfo();
+    setState(() {
+      currentPage = widget.index;
+    });
   }
   @override
   Widget build(BuildContext context) {
+    int index = widget.index;
+    print('now index is $index');
+    HomeParams homeparams = HomeParams.fromJson(FluroConvertUtils.string2map(widget.paramsJson));
+    print('homeparms params1 is: ${homeparams.params1}');
+    print('homeparms params2 is: ${homeparams.params2}');
+    setState(() {
+      // currentPage = index;
+      titles = [AppLocalizations.of(context).listPage, AppLocalizations.of(context).compoentsPage, AppLocalizations.of(context).nativePage, AppLocalizations.of(context).aboutPage];
+    });
     double itemWidth = MediaQuery.of(context).size.width / 5;
     return Scaffold(
         appBar: appBarShow[currentPage] ? new AppBar(
           elevation: 0, ///设置AppBar透明，必须设置为0
           backgroundColor: Colors.transparent,
+          automaticallyImplyLeading: false,
           title: new Center(
                 child: new Text(
                   appBarText[currentPage],

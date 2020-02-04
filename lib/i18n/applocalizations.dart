@@ -16,6 +16,10 @@ class AppLocalizations {
       'register': 'Register',
       'submit': 'Submit',
       'listpage': 'List',
+      'aboutpage': 'About',
+      'settingpage': 'Setting',
+      'nativepage': 'Native',
+      'compoentspage': 'compoents',
     },
     'zh': {
       'apptitle' : '示例',
@@ -27,6 +31,10 @@ class AppLocalizations {
       'register': '注册',
       'submit': '提交',
       'listpage': '列表',
+      'aboutpage': '关于',
+      'settingpage': '设置',
+      'nativepage': '交互',
+      'compoentspage': '组件',
     }
   };
 
@@ -39,7 +47,12 @@ class AppLocalizations {
   get register {return _localizedValues[locale.languageCode]['register'];}
   get submit {return _localizedValues[locale.languageCode]['submit'];}
   get listPage {return _localizedValues[locale.languageCode]['listpage'];}
+  get aboutPage {return _localizedValues[locale.languageCode]['aboutpage'];}
+  get settingPage {return _localizedValues[locale.languageCode]['settingpage'];}
+  get compoentsPage {return _localizedValues[locale.languageCode]['compoentspage'];}
+  get nativePage {return _localizedValues[locale.languageCode]['nativepage'];}
   
+
   static AppLocalizations of(BuildContext context){
     return Localizations.of(context, AppLocalizations);
   }

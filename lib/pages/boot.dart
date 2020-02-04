@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import '../routers/navigatorUtil.dart';
 import '../utils/sharedPreferenceUtil.dart';
+import '../routers/model/homeParams.dart';
 
 class BootPage extends StatefulWidget {
   BootPage({Key key, this.title}) : super(key: key);
@@ -25,7 +26,9 @@ class _BootPageState extends State<BootPage> {
   int count = 5;
   final period = const Duration(seconds: 1);
   goHome(){
-    NavigatorUtil.goHomePage(context);
+    int index = 0;
+    HomeParams homeParms = new HomeParams(params1: '引导页进入example1', params2: '引导页进入example2');
+    NavigatorUtil.goHomePage(context, index, homeParms);
   }
   changeVisible(val){
     setState(() {

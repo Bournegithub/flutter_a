@@ -11,6 +11,9 @@ class Routes {
   static String home = '/home';
   static String adwebview = '/adWebview';
   static String login = '/login';
+  static String setting = '/setting';
+  static String about = '/about';
+  static String github = '/github';
   static void configureRoutes(Router router) {
     _router = router;
     router.notFoundHandler = new Handler(
@@ -24,6 +27,8 @@ class Routes {
     _router.define(home, handler: homeHandler);
     _router.define(adwebview, handler: adwebviewHandler);
     _router.define(login, handler: loginHandler);
+    _router.define(setting, handler: settingHandler);
+    _router.define(github, handler: githubHandler);
   }
   static navigateTo(BuildContext context, String path) {
     _router.navigateTo(context, path);

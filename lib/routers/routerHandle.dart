@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluro/fluro.dart';
-// import '../utils/fluro_convert_util.dart';
+import 'package:flutter_a/pages/about.dart';
+import '../utils/fluro_convert_util.dart';
 
 // pages
 import '../pages/advertising.dart';  // 广告页 首次加载或版本更新时使用
@@ -9,6 +10,8 @@ import '../pages/splash.dart';  // 启动页 正常加载时使用
 import '../pages/boot.dart'; // 引导页 首次启动或者版本更新时启用
 import '../pages/home.dart';  // 首页
 import '../pages/login.dart'; // 登录
+import '../pages/setting.dart'; // 设置
+import '../pages/githubwebview.dart';
 
 // 启动页
 var splashHandler = new Handler(
@@ -23,7 +26,13 @@ var bootHandler = new Handler(
 
 var homeHandler = new Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-    return new HomePage();
+  String index = params['index']?.first;
+  String paramsJson = params['paramsJson']?.first;
+  return HomePage(
+    index: FluroConvertUtils.string2int(index),
+    paramsJson: paramsJson,
+  );
+    // return new HomePage();
 });
 
 var adHandler = new Handler(
@@ -39,4 +48,13 @@ var adwebviewHandler = new Handler(
 var loginHandler = new Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
     return new LoginPage();
+});
+
+var settingHandler = new Handler(
+  handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+    return new SettingPage();
+});
+var githubHandler = new Handler(
+  handlerFunc: (BuildContext context, Map<String, List<String>> params){
+    return new GithubviewPage();
 });

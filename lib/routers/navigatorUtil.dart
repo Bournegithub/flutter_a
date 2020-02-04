@@ -1,7 +1,8 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import './application.dart';
-// import '../utils/fluro_convert_util.dart';
+import '../utils/fluro_convert_util.dart';
+import './model/homeParams.dart';
 import './routes.dart';
 
 
@@ -17,9 +18,27 @@ class NavigatorUtil {
     Navigator.pop(context, result);
   }
 
-  /// 跳转到主页面
-  static void goHomePage(BuildContext context) {
-    Application.router.navigateTo(context, Routes.home, replace: true, transition: TransitionType.cupertino);
+  /// 跳转到主页面 带参数
+  static void goHomePage(BuildContext context, int index, HomeParams params) {
+    String paramsJson = FluroConvertUtils.object2string(params);
+    // Application.router.navigateTo(context, Routes.home, replace: true, transition: TransitionType.cupertino);
+    Application.router.navigateTo(
+      context,
+      Routes.home + '?index=$index&paramsJson=$paramsJson',
+      replace: true,
+      transition: TransitionType.cupertino
+    );
+  }
+  // 返回到主页面 带参数
+  static void backHomePage(BuildContext context, int index, HomeParams params) {
+    String paramsJson = FluroConvertUtils.object2string(params);
+    // Application.router.navigateTo(context, Routes.home, replace: true, transition: TransitionType.cupertino);
+    Application.router.navigateTo(
+      context,
+      Routes.home + '?index=$index&paramsJson=$paramsJson',
+      replace: true,
+      transition: TransitionType.inFromLeft
+    );
   }
   // 跳转到引导页
   static void goBootPage(BuildContext context) {
@@ -33,6 +52,15 @@ class NavigatorUtil {
   static void goAdWebview(BuildContext context) {
     Application.router.navigateTo(context, Routes.adwebview, replace: true, transition: TransitionType.cupertino);
   }
+  // about页面
+  static void goSetting(BuildContext context) {
+    Application.router.navigateTo(context, Routes.setting, replace: false, transition: TransitionType.cupertino);
+  }
+  // githubview页面
+  static void goGithubWebview(BuildContext context) {
+    Application.router.navigateTo(context, Routes.github, replace: true, transition: TransitionType.cupertino);
+  }
+  // 跳转到githubwebview页面
 
   /// 跳转到 传参demo 页面
   // static void goDemoParamsPage(BuildContext context, String name, int age,

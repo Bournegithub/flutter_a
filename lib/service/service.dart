@@ -47,7 +47,6 @@ class Service {
     }
   }
   static getList(parms) async {
-    
     try {
       var result = await Http().post(baseUrl + ApiList.list, data: parms);
       print('Service- result: $result');
@@ -62,6 +61,23 @@ class Service {
       }
     } catch (e) {
       print('list接口/await报错--- $e');
+    }
+  }
+  static getUserInfo(parms) async {
+    try {
+      var result = await Http().post(baseUrl + ApiList.userInfo, data: parms);
+      print('Service- result: $result');
+      ResultData endResult = ResultData.fromJson(result);
+      print('Service- endResult.code: ${endResult.code}');
+      print('Service- endResult.status: ${endResult.status}');
+      print('Service- endResult.env: ${endResult.env}');
+      if(endResult.code == 0) {
+        return endResult.data;
+      } else {
+        // 异常处理
+      }
+    } catch (e) {
+      print('${ApiList.userInfo}接口/await报错--- $e');
     }
   }
 }

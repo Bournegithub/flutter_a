@@ -7,19 +7,19 @@ import '../routers/model/homeParams.dart';
 // ios需在Info.plist文件中加入 <key>io.flutter.embedded_views_preview</key> <string>YES</string>
 
 
-class AdWebviewPage extends StatefulWidget {
-  AdWebviewPage({Key key, this.title}) : super(key: key);
+class GithubviewPage extends StatefulWidget {
+  GithubviewPage({Key key, this.title}) : super(key: key);
   final String title;
   @override
-  _AdWebviewPageState createState() => _AdWebviewPageState();
+  _GithubviewPageState createState() => _GithubviewPageState();
 }
 
-class _AdWebviewPageState extends State<AdWebviewPage> {
+class _GithubviewPageState extends State<GithubviewPage> {
   
-  goHome(){
-    int index = 0;
-    HomeParams homeParms = new HomeParams(params1: 'h5页返回example1', params2: 'h5页返回example2');
-    NavigatorUtil.goHomePage(context, index, homeParms);
+  _goAbout(){
+    int index = 3;
+    HomeParams homeParms = new HomeParams(params1: 'github页面返回example1', params2: 'github页面返回example2');
+    NavigatorUtil.backHomePage(context, index, homeParms);
   }
   @override
   void initState() {
@@ -29,18 +29,18 @@ class _AdWebviewPageState extends State<AdWebviewPage> {
     return Scaffold(
       appBar: new AppBar(
         title: new Center(
-              child: new Text('广告h5页面'),
+              child: new Text('https://github.com/Bournegithub'),
             ),
         leading: new IconButton(
             tooltip: 'Previous choice',
             icon: const Icon(Icons.keyboard_arrow_left),
             onPressed: () {
-              goHome();
+              _goAbout();
             },
         ),
       ),
       body:  new WebviewScaffold(
-          url: "https://www.baidu.com",
+          url: "https://github.com/Bournegithub",
         ),
     );
   }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../utils/sharedPreferenceUtil.dart';
 import '../service/service.dart';
 import '../routers/navigatorUtil.dart';
+import '../routers/model/homeParams.dart';
 import 'dart:async';
 
 class ADPage extends StatefulWidget {
@@ -19,13 +20,14 @@ class _ADPageState extends State <ADPage> with TickerProviderStateMixin {
   var timer;
   // AnimationController controller;
   goHome(){
-    NavigatorUtil.goHomePage(context);
+    int index = 0;
+    HomeParams homeParms = new HomeParams(params1: '广告页进入example1', params2: '广告页进入example2');
+    NavigatorUtil.goHomePage(context, index, homeParms);
   }
   goWebview() {
     NavigatorUtil.goAdWebview(context);
   }
   _getAdImage() {
-
     Future result =  Service.getAD();
     result.then((value){
       print('adimg: $value');

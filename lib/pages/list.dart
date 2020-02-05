@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_a/i18n/applocalizations.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -9,7 +10,6 @@ class ListPage extends StatefulWidget {
   @override
   _ListPageState createState() => _ListPageState();
 }
-
 
 class _ListPageState extends State <ListPage>  {
   // 条目总数
@@ -28,15 +28,17 @@ class _ListPageState extends State <ListPage>  {
       print('val.length: ${val.length}');
       _listData.addAll(val);
       // _listData.addAll(val);
-      print('getlist result is: $_listData');
-      print('getlist result.length is: ${_listData.length}');
+      // print('getlist result is: $_listData');
+      // print('getlist result.length is: ${_listData.length}');
     });
   }
+
   @override
   void initState(){
     super.initState();
     // _getList(_page, _pageSize);
   }
+
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
@@ -113,102 +115,90 @@ class _ListPageState extends State <ListPage>  {
   Widget Item(int index) {
     var info = _listData[index];
     ListResult endInfo = ListResult.fromJson(info);
-    // print('endInfo: $endInfo');
-    // print('endInfo.name: ${endInfo.name}');
-    // print('endInfo.phone: ${endInfo.phone}');
-    // print('endInfo.token: ${endInfo.token}');
-    // print('endInfo.address: ${endInfo.address}');
-    // print('endInfo.company: ${endInfo.company}');
-    // print('endInfo.avatar: ${endInfo.avatar}');
     return Card(
-            child: Container(
-              child: Row(
-                children: <Widget>[
-                  Container(
-                    width: 80.0,
-                    height: 90.0,
-                    child: new Image.network(
-                      endInfo.avatar,
-                    ),
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: Container(
-                        padding: EdgeInsets.all(
-                          10.0,
-                        ),
-                        color: Colors.white,
-                        child: Column(
-                          children: <Widget>[
-                            Row(
-                              children: <Widget>[
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Container(
-                                      width: 120.0,
-                                      height: 18.0,
-                                      // color: Colors.grey[800],
-                                      child: Text(endInfo.name),
-                                    ),
-                                    Container(
-                                      width: 60.0,
-                                      height: 18.0,
-                                      margin: EdgeInsets.only(top: 8.0),
-                                      // color: Colors.grey[200],
-                                      child: Text(endInfo.phone),
-                                    ),
-                                  ],
-                                ),
-                                Expanded(
-                                  flex: 1,
-                                  child: SizedBox(),
-                                ),
-                                Icon(
-                                  Icons.star,
-                                  color: Colors.grey[200],
-                                )
-                              ],
-                            ),
-                            SizedBox(
-                              height: 8.0,
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Container(
-                                  width: double.infinity,
-                                  height: 18.0,
-                                  // color: Colors.grey[200],
-                                  child: Text(endInfo.address),
-                                ),
-                                SizedBox(
-                                  height: 4.0,
-                                ),
-                                Container(
-                                  width: double.infinity,
-                                  height: 18.0,
-                                  // color: Colors.grey[200],
-                                  child: Text(endInfo.company),
-                                ),
-                              ],
-                            ),
-                          ],
-                        )),
-                  ),
-                ],
-              ),
+      child: Container(
+        child: Row(
+          children: <Widget>[
+            Container(
+              width: 80.0,
+              height: 90.0,
+              child: CachedNetworkImage(
+                imageUrl: endInfo.avatar,
+                placeholder: (context, url) => Image.asset('assets/image/public/placeholder.jpg'),
+                errorWidget: (context, url, error) => Image.asset('assets/image/public/error.jpg'),
+              )
             ),
-          );
-    // return Container(
-    //   width: double.infinity,
-    //   height: 80.0,
-    //   child: Center(
-    //     child: Text('${endInfo.name}'),
-    //   ),
-    //   color: index%2==0 ? Colors.grey[300] : Colors.transparent,
-    // );
+            Expanded(
+              flex: 1,
+              child: Container(
+                  padding: EdgeInsets.all(
+                    10.0,
+                  ),
+                  color: Colors.white,
+                  child: Column(
+                    children: <Widget>[
+                      Row(
+                        children: <Widget>[
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Container(
+                                width: 120.0,
+                                height: 18.0,
+                                // color: Colors.grey[800],
+                                child: Text(endInfo.name),
+                              ),
+                              Container(
+                                width: 60.0,
+                                height: 18.0,
+                                margin: EdgeInsets.only(top: 8.0),
+                                // color: Colors.grey[200],
+                                child: Text(endInfo.phone),
+                              ),
+                            ],
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: SizedBox(),
+                          ),
+                          Icon(
+                            Icons.star,
+                            color: Colors.grey[200],
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: 8.0,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Container(
+                            width: double.infinity,
+                            height: 18.0,
+                            // color: Colors.grey[200],
+                            child: Text(endInfo.address),
+                          ),
+                          SizedBox(
+                            height: 4.0,
+                          ),
+                          Container(
+                            width: double.infinity,
+                            height: 18.0,
+                            // color: Colors.grey[200],
+                            child: Text(endInfo.company),
+                          ),
+                        ],
+                      ),
+                    ],
+                  )),
+            ),
+          ],
+        ),
+      ),
+    );
   }
+
   @override
   void dispose() {
     super.dispose();

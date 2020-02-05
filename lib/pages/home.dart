@@ -18,10 +18,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  
   // 创建数组, 引入当前页面
   List<Widget> pageList = [ListPage(), CompoentsPage(), NativePage(), AboutPage()]; 
-  int currentPage; // 当前页面index
+  int currentPage = 0; // 当前页面index
   // 底部菜单item文字
   List titles = ['List', 'Compoents', 'Native', 'About'];
   // List titles = [];
@@ -34,29 +33,26 @@ class _HomePageState extends State<HomePage> {
   //对应页面appbar显示的内容
   List appBarText = ['hello,page1', 'Compoents', 'Native', 'About' ];
   
-  getAppInfo() async {
+  _getAppInfo() async {
     var result = await PackageUtil.getVersionString();
     print('获取APP版本号+$result');
   }
-  setTitle() {
-    print('AppLocalizations.of(context).listPage: ${AppLocalizations.of(context).listPage}');
-  }
   void initState() {
     super.initState();
-    getAppInfo();
+    _getAppInfo();
     setState(() {
       currentPage = widget.index;
     });
   }
+
   @override
   Widget build(BuildContext context) {
+    // 获取传递过来的参数
     int index = widget.index;
-    print('now index is $index');
     HomeParams homeparams = HomeParams.fromJson(FluroConvertUtils.string2map(widget.paramsJson));
-    print('homeparms params1 is: ${homeparams.params1}');
-    print('homeparms params2 is: ${homeparams.params2}');
+    // print('homeparms params1 is: ${homeparams.params1}');
+    // print('homeparms params2 is: ${homeparams.params2}');
     setState(() {
-      // currentPage = index;
       titles = [AppLocalizations.of(context).listPage, AppLocalizations.of(context).compoentsPage, AppLocalizations.of(context).nativePage, AppLocalizations.of(context).aboutPage];
     });
     double itemWidth = MediaQuery.of(context).size.width / 5;
@@ -103,6 +99,7 @@ class _HomePageState extends State<HomePage> {
         ),
       );
   }
+
   Widget bottomAppBarItem(int index) {
     //设置默认未选中的状态
     // TextStyle style = TextStyle(fontSize: 11, color: const Color(0xFF0099ff)); //0x 后面开始 两位FF表示透明度16进制, 之后的0099ff 代表RGB色值
@@ -130,7 +127,6 @@ class _HomePageState extends State<HomePage> {
                 style: style,
               ),
             )
-            
           ],
         ),
         onTap: () {

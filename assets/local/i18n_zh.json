@@ -1,0 +1,16 @@
+{
+    "apptitle" : "示例",
+    "appslogan": "无所无惧",
+    "loading": "正在加载...",
+    "cancle": "取消",
+    "sure": "确定",
+    "login": "登录",
+    "register": "注册",
+    "submit": "提交",
+    "listpage": "列表",
+    "aboutpage": "关于",
+    "settingpage": "设置",
+    "nativepage": "交互",
+    "compoentspage": "组件",
+    "language": "语言"
+  }

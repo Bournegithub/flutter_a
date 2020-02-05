@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_a/i18n/applocalizations.dart';
 import '../service/service.dart';
 import '../model/userInfo.dart';
 import '../routers/navigatorUtil.dart';
+import '../components/stateLayout.dart';
 
 class AboutPage extends StatefulWidget {
   AboutPage({Key key, this.title}) : super(key: key);
@@ -17,6 +20,8 @@ class _AboutPageState extends State<AboutPage> {
   String introduce = '';
   String github = '';
   String avatar = '';
+  // 默认加载状态loading
+  LoadState _layoutState = LoadState.State_Loading;
   _getInfo() {
     var parms = {
       "a": "1",
@@ -32,8 +37,13 @@ class _AboutPageState extends State<AboutPage> {
         introduce = user.introduce;
         github = user.github;
         avatar = user.avatar;
+        _layoutState = LoadState.State_Success;
       });
-      
+    }).catchError((err){
+      print('err is $err');
+      setState(() {
+        _layoutState = LoadState.State_Error;
+      });
     });
   }
   _goGithub(){
@@ -56,9 +66,27 @@ class _AboutPageState extends State<AboutPage> {
           children: <Widget>[
             Container(
               color: Colors.grey[200],
+              // child: StateLayout (
+              //   state: _layoutState,
+              //   errorRetry: () {
+              //     setState(() {
+              //       _layoutState = LoadState.State_Loading;
+              //     });
+              //     _getInfo();
+              //   }, //错误按钮点击过后进行重新加载
+              //   successWidget: Center(
+              //     child: Text('加载成功'),
+              //   ),
+              // )
               child: ListTile(
-                leading: new Image.network(
-                  avatar,
+                // leading: new Image.network(
+                //   avatar,
+                //   height: 120.0,
+                // ),
+                leading: CachedNetworkImage(
+                  imageUrl: avatar,
+                  placeholder: (context, url) => Image.asset('assets/image/public/placeholder.jpg'),
+                  errorWidget: (context, url, error) => Image.asset('assets/image/public/error.jpg'),
                   height: 120.0,
                 ),
                 title: Text(name),
@@ -99,7 +127,7 @@ class _AboutPageState extends State<AboutPage> {
               child: new Center(
                 child: ListTile(
                   title: Text(
-                    '设置',
+                    AppLocalizations.of(context).settingPage,
                     style: TextStyle(fontSize: 13.0,fontWeight: FontWeight.bold),
                   ),
                   trailing: Icon(

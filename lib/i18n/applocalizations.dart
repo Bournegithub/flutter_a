@@ -20,6 +20,7 @@ class AppLocalizations {
       'settingpage': 'Setting',
       'nativepage': 'Native',
       'compoentspage': 'compoents',
+      'language': 'language',
     },
     'zh': {
       'apptitle' : '示例',
@@ -35,6 +36,7 @@ class AppLocalizations {
       'settingpage': '设置',
       'nativepage': '交互',
       'compoentspage': '组件',
+      'language': '语言',
     }
   };
 
@@ -51,6 +53,7 @@ class AppLocalizations {
   get settingPage {return _localizedValues[locale.languageCode]['settingpage'];}
   get compoentsPage {return _localizedValues[locale.languageCode]['compoentspage'];}
   get nativePage {return _localizedValues[locale.languageCode]['nativepage'];}
+  get language {return _localizedValues[locale.languageCode]['language'];}
   
 
   static AppLocalizations of(BuildContext context){

@@ -16,16 +16,6 @@ class SettingPage extends StatefulWidget {
 class _SettingPageState extends State<SettingPage> {
   String currentLanguage = 'en';
   List supportList = [];
-  List <dynamic> localList = [
-    {
-      'name': 'English',
-      'value': 'en',
-    },
-    {
-      'name': 'Chinese',
-      'value': 'zh',
-    }
-  ];
   _goAbout(){
     int index = 3;
     HomeParams homeParms = new HomeParams(params1: 'github页面返回example1', params2: 'github页面返回example2');
@@ -76,20 +66,8 @@ class _SettingPageState extends State<SettingPage> {
     _getSupportList(); // 当前支持的语言
   }
   Widget build(BuildContext context) {
-    setState(() {
-      localList = [
-        {
-          'name': Translations.of(context).text('en'),
-          'value': 'en',
-        },
-        {
-          'name': Translations.of(context).text('zh'),
-          'value': 'zh',
-        }
-      ];
-    });
     final List<String> entries = <String>[Translations.of(context).text('language'),'setting-other','setting-more'];
-    List<String> entriesValue = <String>[currentLanguage, '', ''];
+    List<String> entriesValue = <String>[Translations.of(context).text(currentLanguage), '', ''];
     return Scaffold(
       appBar: new AppBar( 
         title: new Center(

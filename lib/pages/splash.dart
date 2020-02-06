@@ -1,5 +1,6 @@
 // 启动页
 import 'package:flutter/material.dart';
+import 'package:flutter_a/i18n/translations.dart';
 import 'package:rxdart/rxdart.dart';
 import '../routers/navigatorUtil.dart';
 import '../utils/sharedPreferenceUtil.dart';
@@ -76,14 +77,16 @@ class _SplashPageState extends State<SplashPage> {
                 child: new Column(
                   children: <Widget>[
                     Text(
-                      AppLocalizations.of(context).appTitle,
+                      Translations.of(context).text('apptitle'),
+                      // AppLocalizations.of(context).appTitle,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 36.0,
                       )
                     ),
                     Text(
-                      AppLocalizations.of(context).appSlogan,
+                      Translations.of(context).text('appslogan'),
+                      // AppLocalizations.of(context).appSlogan,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 20.0

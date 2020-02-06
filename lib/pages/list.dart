@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter_a/i18n/applocalizations.dart';
+import 'package:flutter_a/i18n/translations.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../service/service.dart';
@@ -67,7 +67,8 @@ class _ListPageState extends State <ListPage>  {
                       ),
                     ),
                     Container(
-                      child: Text(AppLocalizations.of(context).loading),
+                      child: Text(Translations.of(context).text('loading')),
+                      // child: Text(AppLocalizations.of(context).loading),
                     )
                   ],
                 ),

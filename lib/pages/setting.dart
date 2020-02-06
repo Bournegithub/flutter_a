@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_a/i18n/applocalizations.dart';
+import 'package:flutter_a/i18n/application.dart';
+import 'package:flutter_a/i18n/translations.dart';
 import '../routers/navigatorUtil.dart';
 import '../routers/model/homeParams.dart';
 import '../utils/sharedPreferenceUtil.dart';
@@ -13,19 +14,37 @@ class SettingPage extends StatefulWidget {
 }
 
 class _SettingPageState extends State<SettingPage> {
-  String currentLanguage = '';
+  String currentLanguage = 'en';
+  List supportList = [];
+  List <dynamic> localList = [
+    {
+      'name': 'English',
+      'value': 'en',
+    },
+    {
+      'name': 'Chinese',
+      'value': 'zh',
+    }
+  ];
   _goAbout(){
     int index = 3;
     HomeParams homeParms = new HomeParams(params1: 'github页面返回example1', params2: 'github页面返回example2');
     NavigatorUtil.backHomePage(context, index, homeParms);
   }
-  _getCurrentLocal() {
+  _getLocal() {
     Future result = SharedPreferenceUtil.getString('local');
     result.then((value){
-        print('currentLocal is $value');
         setState(() {
-          currentLanguage = value;
+          currentLanguage = value.substring(0, 2);
+          print('currentLocal is $currentLanguage');
         });
+    });
+  }
+  _getSupportList() {
+    Future result = SharedPreferenceUtil.getStringList('supportlist');
+    result.then((value){
+        print("supportlist已读取=$value");
+        supportList = value;
     });
   }
   _language(){
@@ -33,10 +52,7 @@ class _SettingPageState extends State<SettingPage> {
     return showModalBottomSheet(
         context: context,
         builder: (BuildContext context) {
-            return new Container(
-                height: 300.0,
-                child: Text('123'),
-            );
+            return _langWidget();
         },
     ).then((val) {
         print(val);
@@ -56,16 +72,28 @@ class _SettingPageState extends State<SettingPage> {
   @override
   void initState() {
     super.initState();
-    _getCurrentLocal();
+    _getLocal(); // 当前语言
+    _getSupportList(); // 当前支持的语言
   }
   Widget build(BuildContext context) {
-    
-    final List<String> entries = <String>[AppLocalizations.of(context).language, 'B', 'C'];
+    setState(() {
+      localList = [
+        {
+          'name': Translations.of(context).text('en'),
+          'value': 'en',
+        },
+        {
+          'name': Translations.of(context).text('zh'),
+          'value': 'zh',
+        }
+      ];
+    });
+    final List<String> entries = <String>[Translations.of(context).text('language'),'setting-other','setting-more'];
     List<String> entriesValue = <String>[currentLanguage, '', ''];
     return Scaffold(
       appBar: new AppBar( 
         title: new Center(
-              child: new Text(AppLocalizations.of(context).settingPage),
+              child: new Text(Translations.of(context).text('settingpage')),
             ),
         leading: new IconButton(
             tooltip: 'Previous choice',
@@ -123,6 +151,105 @@ class _SettingPageState extends State<SettingPage> {
         ),
     );
   }
+
+  // _changelocale(){
+  //   print('change');
+  // }
+  // _canclelocale(){
+  //   print('cancle');
+  // }
+  @override
+  Widget _langWidget() {
+    return new Container(
+      height: 300.0,
+      child: new Column(
+        children: <Widget>[
+          // new Container(
+          //   height: 60,
+          //   child: new Row(
+          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //     children: <Widget>[
+          //       Container(
+          //         width: 60.0,
+          //         height: 20.0,
+          //         child: GestureDetector(
+          //           onTap:(){
+          //             Navigator.of(context).pop();
+          //             _canclelocale();
+          //           },
+          //           child:Center(
+          //             child: Text(
+          //               Translations.of(context).text('cancle'),
+          //               textAlign: TextAlign.center
+          //             ),
+          //           )
+          //         ),
+          //       ),
+          //       Container(
+          //         width: 60.0,
+          //         height: 20.0,
+          //         child: GestureDetector(
+          //           onTap:(){
+          //             _changelocale();
+          //             Navigator.of(context).pop();
+          //           },
+          //           child: Center(
+          //             child: Text(
+          //               Translations.of(context).text('sure'),
+          //               textAlign: TextAlign.center
+          //             ),
+          //           ),
+          //         ),
+          //       )
+          //     ]
+          //   ),
+          // ),
+          Container(
+            height: 240,
+            child: new ListView.builder(
+              itemBuilder: (BuildContext context, int index) => languageItem(supportList[index]),
+              itemCount: supportList.length,
+            ),
+          )
+          
+        ],
+      )
+    );
+  }
+  _setLanguage(lang) {
+    print('setlanguage: $lang');
+    setState(() {
+      currentLanguage = lang;
+    });
+    applic.onLocaleChanged(new Locale(lang,''));
+    Future result = SharedPreferenceUtil.setString('local', lang);
+    result.then((value){
+        print("StringlocalResult已存储=$value");
+    });
+    // 切换语言后会短暂报错 The method '[]' was called on null. Receiver: null Tried calling: []("listpage") 猜测是 _localizedValues此时加载json未成功, 仍是null
+  }
+  @override
+  Widget languageItem( lang) {
+    Widget item = Container(
+      padding: new EdgeInsets.fromLTRB(0,15,0,0),
+      child: GestureDetector(
+        child: ListTile(
+          title: new Text(Translations.of(context).text(lang)),
+          trailing: currentLanguage == lang ? new Icon(Icons.done) : null,
+          onTap: (){
+            if(currentLanguage == lang){
+              return;
+            } else {
+              _setLanguage(lang);
+              Navigator.of(context).pop();
+            }
+          },
+        ),
+      ),
+    );
+    return item;
+  }
+
   @override
   void dispose() {
     super.dispose();

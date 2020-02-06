@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter_a/i18n/applocalizations.dart';
+import 'package:flutter_a/i18n/translations.dart';
 import '../service/service.dart';
 import '../model/userInfo.dart';
 import '../routers/navigatorUtil.dart';
@@ -127,7 +127,7 @@ class _AboutPageState extends State<AboutPage> {
               child: new Center(
                 child: ListTile(
                   title: Text(
-                    AppLocalizations.of(context).settingPage,
+                    Translations.of(context).text('settingpage'),
                     style: TextStyle(fontSize: 13.0,fontWeight: FontWeight.bold),
                   ),
                   trailing: Icon(

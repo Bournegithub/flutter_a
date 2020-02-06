@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_a/i18n/translations.dart';
 import '../utils/package_util.dart';
 import 'list.dart';
 import '../utils/corlors_util.dart';
-import '../i18n/applocalizations.dart';
 import 'about.dart';
 import '../routers/model/homeParams.dart';
 import '../utils/fluro_convert_util.dart';
@@ -37,6 +37,9 @@ class _HomePageState extends State<HomePage> {
     var result = await PackageUtil.getVersionString();
     print('获取APP版本号+$result');
   }
+  getlocalset(){
+    var currentLanguage = Translations.of(context);
+  }
   void initState() {
     super.initState();
     _getAppInfo();
@@ -53,7 +56,7 @@ class _HomePageState extends State<HomePage> {
     // print('homeparms params1 is: ${homeparams.params1}');
     // print('homeparms params2 is: ${homeparams.params2}');
     setState(() {
-      titles = [AppLocalizations.of(context).listPage, AppLocalizations.of(context).compoentsPage, AppLocalizations.of(context).nativePage, AppLocalizations.of(context).aboutPage];
+      titles = [Translations.of(context).text('listpage'), Translations?.of(context)?.text('compoentspage'), Translations.of(context).text('nativepage'), Translations.of(context).text('aboutpage')];
     });
     double itemWidth = MediaQuery.of(context).size.width / 5;
     return Scaffold(

@@ -28,6 +28,7 @@ class _GithubviewPageState extends State<GithubviewPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: new AppBar(
+        centerTitle: true,
         title: new Center(
               child: new Text('https://github.com/Bournegithub'),
             ),

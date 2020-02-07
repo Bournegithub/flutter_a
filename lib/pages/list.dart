@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter_a/i18n/translations.dart';
+import '../i18n/translations.dart';
+import '../routers/navigatorUtil.dart';
+import '../routers/model/detailParams.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../service/service.dart';
@@ -27,10 +29,25 @@ class _ListPageState extends State <ListPage>  {
       print('val is: $val');
       print('val.length: ${val.length}');
       _listData.addAll(val);
+      setState(() {
+        _listData;
+      });
       // _listData.addAll(val);
       // print('getlist result is: $_listData');
       // print('getlist result.length is: ${_listData.length}');
     });
+  }
+  // 为了传参示例，写了一个比较复杂的参数
+  _goDetail(id,name){
+    int a = 0;
+    String b = 'b';
+    bool c = true;
+    DetailParams detailParms = new DetailParams(
+      id: id,
+      name: name,
+      examplelist: ['1','2']
+    );
+    NavigatorUtil.goDetailPage(context, a, b, c, detailParms);
   }
 
   @override
@@ -117,85 +134,91 @@ class _ListPageState extends State <ListPage>  {
     var info = _listData[index];
     ListResult endInfo = ListResult.fromJson(info);
     return Card(
-      child: Container(
-        child: Row(
-          children: <Widget>[
-            Container(
-              width: 80.0,
-              height: 90.0,
-              child: CachedNetworkImage(
-                imageUrl: endInfo.avatar,
-                placeholder: (context, url) => Image.asset('assets/image/public/placeholder.jpg'),
-                errorWidget: (context, url, error) => Image.asset('assets/image/public/error.jpg'),
-              )
-            ),
-            Expanded(
-              flex: 1,
-              child: Container(
-                  padding: EdgeInsets.all(
-                    10.0,
-                  ),
-                  color: Colors.white,
-                  child: Column(
-                    children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Container(
-                                width: 120.0,
-                                height: 18.0,
-                                // color: Colors.grey[800],
-                                child: Text(endInfo.name),
-                              ),
-                              Container(
-                                width: 60.0,
-                                height: 18.0,
-                                margin: EdgeInsets.only(top: 8.0),
-                                // color: Colors.grey[200],
-                                child: Text(endInfo.phone),
-                              ),
-                            ],
-                          ),
-                          Expanded(
-                            flex: 1,
-                            child: SizedBox(),
-                          ),
-                          Icon(
-                            Icons.star,
-                            color: Colors.grey[200],
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        height: 8.0,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Container(
-                            width: double.infinity,
-                            height: 18.0,
-                            // color: Colors.grey[200],
-                            child: Text(endInfo.address),
-                          ),
-                          SizedBox(
-                            height: 4.0,
-                          ),
-                          Container(
-                            width: double.infinity,
-                            height: 18.0,
-                            // color: Colors.grey[200],
-                            child: Text(endInfo.company),
-                          ),
-                        ],
-                      ),
-                    ],
-                  )),
-            ),
-          ],
-        ),
+      child: Container (
+        child:GestureDetector(
+          onTap: (){
+            _goDetail(endInfo.phone, endInfo.name);
+          },
+          behavior: HitTestBehavior.opaque,
+          child: Row(
+            children: <Widget>[
+              Container(
+                width: 80.0,
+                height: 90.0,
+                child: CachedNetworkImage(
+                  imageUrl: endInfo.avatar,
+                  placeholder: (context, url) => Image.asset('assets/image/public/placeholder.jpg'),
+                  errorWidget: (context, url, error) => Image.asset('assets/image/public/error.jpg'),
+                )
+              ),
+              Expanded(
+                flex: 1,
+                child: Container(
+                    padding: EdgeInsets.all(
+                      10.0,
+                    ),
+                    color: Colors.white,
+                    child: Column(
+                      children: <Widget>[
+                        Row(
+                          children: <Widget>[
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Container(
+                                  width: 120.0,
+                                  height: 18.0,
+                                  // color: Colors.grey[800],
+                                  child: Text(endInfo.name),
+                                ),
+                                Container(
+                                  width: 60.0,
+                                  height: 18.0,
+                                  margin: EdgeInsets.only(top: 8.0),
+                                  // color: Colors.grey[200],
+                                  child: Text(endInfo.phone),
+                                ),
+                              ],
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: SizedBox(),
+                            ),
+                            Icon(
+                              Icons.star,
+                              color: Colors.grey[200],
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height: 8.0,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Container(
+                              width: double.infinity,
+                              height: 18.0,
+                              // color: Colors.grey[200],
+                              child: Text(endInfo.address),
+                            ),
+                            SizedBox(
+                              height: 4.0,
+                            ),
+                            Container(
+                              width: double.infinity,
+                              height: 18.0,
+                              // color: Colors.grey[200],
+                              child: Text(endInfo.company),
+                            ),
+                          ],
+                        ),
+                      ],
+                    )),
+              ),
+            ],
+          ),
+        )
       ),
     );
   }

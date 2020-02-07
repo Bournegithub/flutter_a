@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import './application.dart';
 import '../utils/fluro_convert_util.dart';
 import './model/homeParams.dart';
+import './model/detailParams.dart';
 import './routes.dart';
 
 
@@ -60,6 +61,18 @@ class NavigatorUtil {
   static void goGithubWebview(BuildContext context) {
     Application.router.navigateTo(context, Routes.github, replace: true, transition: TransitionType.cupertino);
   }
+  // detail页面 
+  static void goDetailPage(BuildContext context,int exampleint, String examplestring, bool exmplebool, DetailParams params) {
+    String paramsJson = FluroConvertUtils.object2string(params);
+    // Application.router.navigateTo(context, Routes.home, replace: true, transition: TransitionType.cupertino);
+    Application.router.navigateTo(
+      context,
+      Routes.detail + '?paramsInt=$exampleint&paramsString=$examplestring&paramsBool=$exmplebool&paramsJson=$paramsJson',
+      replace: false,
+      transition: TransitionType.cupertino
+    );
+  }
+
   // 跳转到githubwebview页面
 
   /// 跳转到 传参demo 页面

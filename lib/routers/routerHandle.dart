@@ -11,7 +11,8 @@ import '../pages/boot.dart'; // 引导页 首次启动或者版本更新时启�
 import '../pages/home.dart';  // 首页
 import '../pages/login.dart'; // 登录
 import '../pages/setting.dart'; // 设置
-import '../pages/githubwebview.dart';
+import '../pages/githubwebview.dart'; // githubwebview页面
+import '../pages/detail.dart'; // 详细页
 
 // 启动页
 var splashHandler = new Handler(
@@ -57,4 +58,17 @@ var settingHandler = new Handler(
 var githubHandler = new Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params){
     return new GithubviewPage();
+});
+var detailHandler = new Handler(
+  handlerFunc: (BuildContext context, Map<String, List<String>> params){
+    String exampleint = params['paramsInt']?.first;
+    String examplestring = params['paramsString']?.first;
+    String examplebool = params['paramsBool']?.first;
+    String paramsjson = params['paramsJson']?.first;
+    return DetailPage(
+      paramsInt: FluroConvertUtils.string2int(exampleint),
+      paramsString: examplestring,
+      paramsBool: FluroConvertUtils.string2bool(examplebool),
+      paramsJson: paramsjson,
+    );
 });

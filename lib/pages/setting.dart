@@ -70,9 +70,11 @@ class _SettingPageState extends State<SettingPage> {
     List<String> entriesValue = <String>[Translations.of(context).text(currentLanguage), '', ''];
     return Scaffold(
       appBar: new AppBar( 
-        title: new Center(
-              child: new Text(Translations.of(context).text('settingpage')),
-            ),
+        centerTitle: true,
+        title: new Text(
+          Translations.of(context).text('settingpage'),
+          textAlign:TextAlign.center,
+        ),
         leading: new IconButton(
             tooltip: 'Previous choice',
             icon: const Icon(Icons.keyboard_arrow_left),

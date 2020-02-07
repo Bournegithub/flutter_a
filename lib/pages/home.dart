@@ -66,12 +66,12 @@ class _HomePageState extends State<HomePage> {
           elevation: 0, ///设置AppBar透明，必须设置为0
           backgroundColor: Colors.transparent,
           automaticallyImplyLeading: false,
-          title: new Center(
-                child: new Text(
-                  appBarText[currentPage],
-                  style: TextStyle(color: Colors.grey),
-                ),
-              ),
+          centerTitle: true,
+          title: new Text(
+            appBarText[currentPage],
+            textAlign:TextAlign.center,
+            style: TextStyle(color: Colors.grey),
+          ),
         ) : null,
         body: pageList[currentPage], // 当前选中页面
         floatingActionButton: FloatingActionButton(

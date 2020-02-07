@@ -14,6 +14,7 @@ class Routes {
   static String setting = '/setting';
   static String about = '/about';
   static String github = '/github';
+  static String detail = '/detail';
   static void configureRoutes(Router router) {
     _router = router;
     router.notFoundHandler = new Handler(
@@ -29,6 +30,7 @@ class Routes {
     _router.define(login, handler: loginHandler);
     _router.define(setting, handler: settingHandler);
     _router.define(github, handler: githubHandler);
+    _router.define(detail, handler: detailHandler);
   }
   static navigateTo(BuildContext context, String path) {
     _router.navigateTo(context, path);

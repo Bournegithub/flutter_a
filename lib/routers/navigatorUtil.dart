@@ -61,6 +61,9 @@ class NavigatorUtil {
   static void goGithubWebview(BuildContext context) {
     Application.router.navigateTo(context, Routes.github, replace: true, transition: TransitionType.cupertino);
   }
+  static void goLogin(BuildContext context) {
+    Application.router.navigateTo(context, Routes.login, replace: true, transition: TransitionType.cupertino);
+  }
   // detail页面 
   static void goDetailPage(BuildContext context,int exampleint, String examplestring, bool exmplebool, DetailParams params) {
     String paramsJson = FluroConvertUtils.object2string(params);

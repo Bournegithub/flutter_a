@@ -4,7 +4,7 @@ import 'package:flutter_a/i18n/translations.dart';
 import 'package:rxdart/rxdart.dart';
 import '../routers/navigatorUtil.dart';
 import '../utils/sharedPreferenceUtil.dart';
-import '../i18n/applocalizations.dart';
+import '../service/service.dart';
 
 class SplashPage extends StatefulWidget {
   SplashPage({Key key, this.title}) : super(key: key);
@@ -18,35 +18,60 @@ class _SplashPageState extends State<SplashPage> {
   String currentLocal;
   // 是否第一次打开，用来调试启动页之后跳转引导页还是广告页
   bool isFirstOpen = true;
-  getIsfirstOpen(){
+  bool tokenSuccess;
+  String token;
+  bool tokenStatus;
+  String username;
+
+  _getIsfirstOpen(){
     Future result = SharedPreferenceUtil.getBool('isFirstOpen');
     result.then((value){
       print("get isFirstOpenResult=$value");
-      if(value == null || value) {
+      if(value == null) {
+        isFirstOpen = true;
       } else {
-        isFirstOpen = false;
+        isFirstOpen = value;
       }
         // currentLocal = value;
     });
   }
-  // getprivate() {
-  //   var test = TestValue('A');
-  //   print('paivate-test is : $test');
-  // }
-  
-  @override
-  void initState() {
-    super.initState();
-    getIsfirstOpen();
-    Observable.timer(0, Duration(seconds: 2)).listen((_){
-      print('Now isFirstOpen is $isFirstOpen');
-      // 第一次启动app或者版本更新后第一次启动app进入引导页,正常进入广告页
+  _getToken(){
+    Future result = SharedPreferenceUtil.getString('token');
+    result.then((value){
+      print("get token=$value");
+      setState(() {
+        if(value == null) {
+        tokenSuccess = false;
+      } else {
+        token = value;
+        tokenSuccess = true;
+      }
+      });
+    });
+  }
+  _goLogin(){
+    NavigatorUtil.goLogin(context);
+  }
+  _promiseJob() async {
+    await _getToken();
+    if(tokenSuccess){
+      await _getIsfirstOpen();
+      // 第一次启动app或者版本更新后第一次启动app进入引导页, 正常进入广告页
       if(isFirstOpen) {
         NavigatorUtil.goBootPage(context);
       } else {
         NavigatorUtil.goADPage(context);
       }
-      // NavigatorUtil.goADPage(context);
+    }else{
+      _goLogin();
+    }
+    
+  }
+  @override
+  void initState() {
+    super.initState();
+    Observable.timer(0, Duration(seconds: 3)).listen((_){
+      _promiseJob();
     });
     
   }

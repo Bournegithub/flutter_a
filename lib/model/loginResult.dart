@@ -1,5 +1,5 @@
-// /login接口返回实例化
 class LoginResult {
+  String id;
   String name;
   String phone;
   String token;
@@ -8,7 +8,8 @@ class LoginResult {
   String avatar;
 
   LoginResult(
-      {this.name,
+      {this.id,
+      this.name,
       this.phone,
       this.token,
       this.address,
@@ -16,6 +17,7 @@ class LoginResult {
       this.avatar});
 
   LoginResult.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
     name = json['name'];
     phone = json['phone'];
     token = json['token'];
@@ -26,6 +28,7 @@ class LoginResult {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
     data['name'] = this.name;
     data['phone'] = this.phone;
     data['token'] = this.token;

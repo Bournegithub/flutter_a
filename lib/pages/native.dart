@@ -8,14 +8,16 @@ class NativePage extends StatefulWidget {
   _NativePageState createState() => _NativePageState();
 }
 
-class _NativePageState extends State<NativePage> {
-  
+class _NativePageState extends State<NativePage> with AutomaticKeepAliveClientMixin {
+  @protected
+  bool get wantKeepAlive => true;
 
   @override
   void initState() {
     super.initState();
   }
   Widget build(BuildContext context) {
+    super.build(context);
     return Container(
       child: new Text('native')
     );

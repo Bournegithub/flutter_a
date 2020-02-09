@@ -13,7 +13,9 @@ class ListPage extends StatefulWidget {
   _ListPageState createState() => _ListPageState();
 }
 
-class _ListPageState extends State <ListPage>  {
+class _ListPageState extends State <ListPage> with AutomaticKeepAliveClientMixin  {
+  @protected
+  bool get wantKeepAlive => true;
   // 条目总数
   int _count = 0;
   int _page = 1;
@@ -57,6 +59,7 @@ class _ListPageState extends State <ListPage>  {
   }
 
   Widget build(BuildContext context) {
+    super.build(context);
     return Container(
       width: double.infinity,
       height: double.infinity,
@@ -96,6 +99,7 @@ class _ListPageState extends State <ListPage>  {
               SliverList(
                 delegate: SliverChildBuilderDelegate(
                   (context, index) {
+                    // print('context is $context');
                     return Item(index);
                   },
                   childCount: _count,

@@ -1,5 +1,6 @@
 // 广告页 跟随启动页，在引导页启用时不启用
 import 'package:flutter/material.dart';
+import 'package:flutter_a/pages/native.dart';
 import '../utils/sharedPreferenceUtil.dart';
 import '../service/service.dart';
 import '../routers/navigatorUtil.dart';
@@ -19,10 +20,11 @@ class _ADPageState extends State <ADPage> with TickerProviderStateMixin {
   final period = const Duration(seconds: 1);
   var timer;
   // AnimationController controller;
-  goHome(){
-    int index = 0;
-    HomeParams homeParms = new HomeParams(params1: '广告页进入example1', params2: '广告页进入example2');
-    NavigatorUtil.goHomePage(context, index, homeParms);
+
+  goHome() {
+      int index = 0;
+      HomeParams homeParms = new HomeParams(params1: '广告页进入example1', params2: '广告页进入example2');
+      NavigatorUtil.goHomePage(context, index, homeParms);
   }
   goWebview() {
     NavigatorUtil.goAdWebview(context);
@@ -47,12 +49,9 @@ class _ADPageState extends State <ADPage> with TickerProviderStateMixin {
         //取消定时器，避免无限回调
         timer.cancel();
         timer = null;
+        // 加判断token
         goHome();
       }
-    });
-    Future<bool> result = SharedPreferenceUtil.setBool('isFirstOpen', true);
-    result.then((value){
-      // print('isFirstOpen已经存储');
     });
     _getAdImage();
     // controller = AnimationController(duration: const Duration(seconds: 5), vsync: this);

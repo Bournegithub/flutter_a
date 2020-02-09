@@ -5,6 +5,7 @@ import '../service/service.dart';
 import '../model/userInfo.dart';
 import '../routers/navigatorUtil.dart';
 import '../components/stateLayout.dart';
+import '../utils/sharedPreferenceUtil.dart';
 
 class AboutPage extends StatefulWidget {
   AboutPage({Key key, this.title}) : super(key: key);
@@ -13,7 +14,11 @@ class AboutPage extends StatefulWidget {
   _AboutPageState createState() => _AboutPageState();
 }
 
-class _AboutPageState extends State<AboutPage> {
+class _AboutPageState extends State<AboutPage> with AutomaticKeepAliveClientMixin {
+  @protected
+  bool get wantKeepAlive => true;
+  String userid;
+  String token;
   String name = '';
   String phone = '';
   String mail = '';
@@ -22,10 +27,23 @@ class _AboutPageState extends State<AboutPage> {
   String avatar = '';
   // 默认加载状态loading
   LoadState _layoutState = LoadState.State_Loading;
-  _getInfo() {
+  
+  getPreference(obj, name){
+    Future<String> result = SharedPreferenceUtil.getString(name);
+    result.then((value){
+      // print('isFirstOpen已经存储');
+      setState(() {
+        obj = value;
+      });
+    });
+  }
+
+  _getInfo() async {
+    await getPreference(userid, 'userid');
+    await getPreference(token, 'token');
     var parms = {
-      "a": "1",
-      "b": "2"
+      "userid": userid,
+      "token": token
     };
     Future result = Service.getUserInfo(parms);
     result.then((val){
@@ -46,6 +64,21 @@ class _AboutPageState extends State<AboutPage> {
       });
     });
   }
+  _loginOut() async {
+    await _removePreferen('userid');
+    await _removePreferen('username');
+    await _removePreferen('token');
+    _goLoginPage();
+  }
+  _removePreferen(name){
+    Future<bool> result = SharedPreferenceUtil.remove(name);
+    result.then((value){
+      print('已删除');
+    });
+  }
+  _goLoginPage() {
+    NavigatorUtil.goLogin(context);
+  }
   _goGithub(){
     NavigatorUtil.goGithubWebview(context);
   }
@@ -55,9 +88,11 @@ class _AboutPageState extends State<AboutPage> {
   @override
   void initState() {
     super.initState();
+    
     _getInfo();
   }
   Widget build(BuildContext context) {
+    super.build(context);
     return Container(
       width: double.infinity,
       height: double.infinity,
@@ -109,19 +144,6 @@ class _AboutPageState extends State<AboutPage> {
               height: 10.0,
             ),
             Container(
-              height: 50,
-              color: Colors.amber[500],
-              child: const Center(child: Text('Entry B')),
-            ),
-            Container(
-              height: 50,
-              color: Colors.amber[100],
-              child: const Center(child: Text('Entry C')),
-            ),
-            SizedBox(
-              height: 5.0,
-            ),
-            Container(
               padding: EdgeInsets.all(0),
               color: Colors.grey[200],
               child: new Center(
@@ -140,7 +162,26 @@ class _AboutPageState extends State<AboutPage> {
                   },
                 ),
               ),
-            )
+            ),
+            SizedBox(
+              height: 10.0,
+            ),
+            Container(
+              height: 50,
+              color: Colors.amber[100],
+              child: new Center(
+                child: GestureDetector(
+                  onTap: (){
+                    _loginOut();
+                  },
+                  behavior: HitTestBehavior.opaque,
+                  child: Text(
+                    Translations.of(context).text('loginout'),
+                    style: TextStyle(fontSize: 13.0,fontWeight: FontWeight.bold),
+                  ),
+                )
+              ),
+            ),
           ],
         )
       )

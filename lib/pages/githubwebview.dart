@@ -14,18 +14,21 @@ class GithubviewPage extends StatefulWidget {
   _GithubviewPageState createState() => _GithubviewPageState();
 }
 
-class _GithubviewPageState extends State<GithubviewPage> {
-  
+class _GithubviewPageState extends State<GithubviewPage> with AutomaticKeepAliveClientMixin {
+  @protected
+  bool get wantKeepAlive => true;
   _goAbout(){
-    int index = 3;
-    HomeParams homeParms = new HomeParams(params1: 'github页面返回example1', params2: 'github页面返回example2');
-    NavigatorUtil.backHomePage(context, index, homeParms);
+    NavigatorUtil.goBack(context);
+    // int index = 3;
+    // HomeParams homeParms = new HomeParams(params1: 'github页面返回example1', params2: 'github页面返回example2');
+    // NavigatorUtil.backHomePage(context, index, homeParms);
   }
   @override
   void initState() {
     super.initState();
   }
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       appBar: new AppBar(
         centerTitle: true,

@@ -59,7 +59,7 @@ class NavigatorUtil {
   }
   // githubview页面
   static void goGithubWebview(BuildContext context) {
-    Application.router.navigateTo(context, Routes.github, replace: true, transition: TransitionType.cupertino);
+    Application.router.navigateTo(context, Routes.github, replace: false, transition: TransitionType.cupertino);
   }
   static void goLogin(BuildContext context) {
     Application.router.navigateTo(context, Routes.login, replace: true, transition: TransitionType.cupertino);

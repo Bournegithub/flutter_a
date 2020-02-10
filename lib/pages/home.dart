@@ -32,7 +32,10 @@ class _HomePageState extends State<HomePage> {
   List appBarShow = [false, true, true, true];
   //对应页面appbar显示的内容
   List appBarText = [];
-  
+
+  List<Widget> _pages = List();
+  PageController _controller;
+
   _getAppInfo() async {
     var result = await PackageUtil.getVersionString();
     print('获取APP版本号+$result');
@@ -46,6 +49,9 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       currentPage = widget.index;
     });
+    _pages..add(ListPage())..add(CompoentsPage())..add(NativePage())..add(AboutPage());
+    _controller = PageController(initialPage: currentPage);
+    
   }
 
   @override
@@ -57,7 +63,7 @@ class _HomePageState extends State<HomePage> {
     // print('homeparms params2 is: ${homeparams.params2}');
     setState(() {
       titles = [Translations.of(context).text('listpage'), Translations.of(context).text('compoentspage'), Translations.of(context).text('nativepage'), Translations.of(context).text('aboutpage')];
-    appBarText = [Translations.of(context).text('listpage'), Translations.of(context).text('compoentspage'), Translations.of(context).text('nativepage'), Translations.of(context).text('aboutpage')];
+      appBarText = [Translations.of(context).text('listpage'), Translations.of(context).text('compoentspage'), Translations.of(context).text('nativepage'), Translations.of(context).text('aboutpage')];
     });
     
     double itemWidth = MediaQuery.of(context).size.width / 5;
@@ -73,7 +79,8 @@ class _HomePageState extends State<HomePage> {
             style: TextStyle(color: Colors.grey),
           ),
         ) : null,
-        body: pageList[currentPage], // 当前选中页面
+        // body: pageList[currentPage], // 当前选中页面
+        body: buildBody(),
         floatingActionButton: FloatingActionButton(
             // onPressed: _openNewPage,
             child: Icon(
@@ -104,6 +111,24 @@ class _HomePageState extends State<HomePage> {
         ),
       );
   }
+  Widget buildBody(){
+    return PageView.builder(
+      controller: _controller,
+      itemCount: _pages.length,
+      physics: NeverScrollableScrollPhysics(),
+      itemBuilder: (context, index) {
+        return _pages[index];
+      },
+      onPageChanged: (index) {
+        if (index != _controller) {
+          setState(() {
+            currentPage = index;
+          });
+        }
+      },
+    );
+  }
+
 
   Widget bottomAppBarItem(int index) {
     //设置默认未选中的状态
@@ -135,6 +160,7 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
         onTap: () {
+          _controller.jumpToPage(index);
           if (currentPage != index) {
             setState(() {
               currentPage = index;

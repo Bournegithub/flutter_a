@@ -13,13 +13,16 @@ class SettingPage extends StatefulWidget {
   _SettingPageState createState() => _SettingPageState();
 }
 
-class _SettingPageState extends State<SettingPage> {
+class _SettingPageState extends State<SettingPage> with AutomaticKeepAliveClientMixin {
+  @protected
+  bool get wantKeepAlive => true;
   String currentLanguage = 'en';
   List supportList = [];
   _goAbout(){
-    int index = 3;
-    HomeParams homeParms = new HomeParams(params1: 'github页面返回example1', params2: 'github页面返回example2');
-    NavigatorUtil.backHomePage(context, index, homeParms);
+    NavigatorUtil.goBack(context);
+    // int index = 3;
+    // HomeParams homeParms = new HomeParams(params1: 'github页面返回example1', params2: 'github页面返回example2');
+    // NavigatorUtil.backHomePage(context, index, homeParms);
   }
   _getLocal() {
     Future result = SharedPreferenceUtil.getString('local');
@@ -66,6 +69,7 @@ class _SettingPageState extends State<SettingPage> {
     _getSupportList(); // 当前支持的语言
   }
   Widget build(BuildContext context) {
+    super.build(context);
     final List<String> entries = <String>[Translations.of(context).text('language'),'setting-other','setting-more'];
     List<String> entriesValue = <String>[Translations.of(context).text(currentLanguage), '', ''];
     return Scaffold(

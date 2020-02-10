@@ -15,7 +15,9 @@ class DetailPage extends StatefulWidget {
   _DetailPageState createState() => _DetailPageState();
 }
 
-class _DetailPageState extends State<DetailPage> {
+class _DetailPageState extends State<DetailPage> with AutomaticKeepAliveClientMixin {
+  @protected
+  bool get wantKeepAlive => true;
   int exampleint;
   String examplestring;
   bool examplebool;
@@ -26,9 +28,12 @@ class _DetailPageState extends State<DetailPage> {
 
 // animationController.forward(from:0);
   _goList(){
-    int index = 0;
-    HomeParams homeParms = new HomeParams(params1: 'detail页面返回example1', params2: 'detail页面返回example2');
-    NavigatorUtil.backHomePage(context, index, homeParms);
+    // 如需保持上一页状态使用goback
+    NavigatorUtil.goBack(context);
+    // 不需要保持状态的时候使用传参的形式
+    // int index = 0;
+    // HomeParams homeParms = new HomeParams(params1: 'detail页面返回example1', params2: 'detail页面返回example2');
+    // NavigatorUtil.backHomePage(context, index, homeParms);
   }
 
   @override
@@ -38,6 +43,7 @@ class _DetailPageState extends State<DetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     exampleint = widget.paramsInt;
     examplestring = widget.paramsString;
     examplebool = widget.paramsBool;

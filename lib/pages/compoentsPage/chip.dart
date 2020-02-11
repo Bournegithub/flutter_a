@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../routers/navigatorUtil.dart';
 
 
 class CPChip extends StatefulWidget {
@@ -12,6 +13,10 @@ class _CPChipState extends State<CPChip> with AutomaticKeepAliveClientMixin {
   @protected
   bool get wantKeepAlive => true;
 
+  _goback() {
+    NavigatorUtil.goBack(context);
+  }
+
   @override
   void initState() {
     super.initState();
@@ -19,6 +24,18 @@ class _CPChipState extends State<CPChip> with AutomaticKeepAliveClientMixin {
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
+      appBar: new AppBar(
+        centerTitle: true,
+        title: new Center(
+              child: new Text('Chip'),
+            ),
+        leading: new IconButton(
+            icon: const Icon(Icons.keyboard_arrow_left),
+            onPressed: () {
+              _goback();
+            },
+        ),
+      ),
       body: new Text('chip')
     );
   }

@@ -32,9 +32,10 @@ class _GithubviewPageState extends State<GithubviewPage> with AutomaticKeepAlive
     return Scaffold(
       appBar: new AppBar(
         centerTitle: true,
-        title: new Center(
-              child: new Text('https://github.com/Bournegithub'),
-            ),
+        title: new Text(
+          'https://github.com/Bournegithub',
+          textAlign:TextAlign.center,
+        ),
         leading: new IconButton(
             tooltip: 'Previous choice',
             icon: const Icon(Icons.keyboard_arrow_left),

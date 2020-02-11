@@ -22,7 +22,7 @@ import '../pages/compoentsPage/drawer.dart';
 import '../pages/compoentsPage/expansionPanel.dart';
 import '../pages/compoentsPage/form.dart';
 import '../pages/compoentsPage/placeholder.dart';
-import '../pages/compoentsPage/rowCloumn.dart';
+import '../pages/compoentsPage/rowColumn.dart';
 import '../pages/compoentsPage/scaffold.dart';
 import '../pages/compoentsPage/stepper.dart';
 import '../pages/compoentsPage/tabBar.dart';
@@ -107,7 +107,7 @@ var placeholderHandler = new Handler(
 });
 var rowcloumnHandler = new Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params){
-    return new CPRowCloumn();
+    return new CPRowColumn();
 });
 var scaffoldHandler = new Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params){

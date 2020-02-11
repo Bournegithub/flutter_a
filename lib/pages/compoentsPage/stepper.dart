@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import '../../routers/navigatorUtil.dart';
 
 class CPStepper extends StatefulWidget {
   CPStepper({Key key, this.title}) : super(key: key);
@@ -12,6 +12,9 @@ class _CPStepperState extends State<CPStepper> with AutomaticKeepAliveClientMixi
   @protected
   bool get wantKeepAlive => true;
 
+  _goback() {
+    NavigatorUtil.goBack(context);
+  }
   @override
   void initState() {
     super.initState();
@@ -19,6 +22,18 @@ class _CPStepperState extends State<CPStepper> with AutomaticKeepAliveClientMixi
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
+      appBar: new AppBar(
+        centerTitle: true,
+        title: new Center(
+              child: new Text('Stepper'),
+            ),
+        leading: new IconButton(
+            icon: const Icon(Icons.keyboard_arrow_left),
+            onPressed: () {
+              _goback();
+            },
+        ),
+      ),
       body: new Text('stepper')
     );
   }

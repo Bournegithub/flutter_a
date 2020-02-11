@@ -102,7 +102,7 @@ class _ListPageState extends State <ListPage> with AutomaticKeepAliveClientMixin
                     // print('context is $context');
                     return Item(index);
                   },
-                  childCount: _count,
+                  childCount: _count
                 ),
               ),
             ],

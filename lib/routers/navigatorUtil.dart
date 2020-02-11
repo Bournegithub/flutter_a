@@ -53,7 +53,7 @@ class NavigatorUtil {
   static void goAdWebview(BuildContext context) {
     Application.router.navigateTo(context, Routes.adwebview, replace: true, transition: TransitionType.cupertino);
   }
-  // about页面
+  // 设置页面
   static void goSetting(BuildContext context) {
     Application.router.navigateTo(context, Routes.setting, replace: false, transition: TransitionType.cupertino);
   }
@@ -76,7 +76,44 @@ class NavigatorUtil {
     );
   }
 
-  // 跳转到githubwebview页面
+  // compoents 系列页面
+  static void goCPChip(BuildContext context) {
+    Application.router.navigateTo(context, Routes.chip, replace: false, transition: TransitionType.cupertino);
+  }
+  static void goCPDataTable(BuildContext context) {
+    Application.router.navigateTo(context, Routes.datatable, replace: false, transition: TransitionType.cupertino);
+  }
+  static void goCPDatePickers(BuildContext context) {
+    Application.router.navigateTo(context, Routes.datepickers, replace: false, transition: TransitionType.cupertino);
+  }
+  static void goCPDialog(BuildContext context) {
+    Application.router.navigateTo(context, Routes.dialog, replace: false, transition: TransitionType.cupertino);
+  }
+  static void goCPDrawer(BuildContext context) {
+    Application.router.navigateTo(context, Routes.drawer, replace: false, transition: TransitionType.cupertino);
+  }
+  static void goCPPanel(BuildContext context) {
+    Application.router.navigateTo(context, Routes.panel, replace: false, transition: TransitionType.cupertino);
+  }
+  static void goCPForm(BuildContext context) {
+    Application.router.navigateTo(context, Routes.form, replace: false, transition: TransitionType.cupertino);
+  }
+  static void goCPPlaceholder(BuildContext context) {
+    Application.router.navigateTo(context, Routes.placeholder, replace: false, transition: TransitionType.cupertino);
+  }
+  static void goCPRowcloumn(BuildContext context) {
+    Application.router.navigateTo(context, Routes.rowcloumn, replace: false, transition: TransitionType.cupertino);
+  }
+  static void goCPScaffold(BuildContext context) {
+    Application.router.navigateTo(context, Routes.scaffold, replace: false, transition: TransitionType.cupertino);
+  }
+  static void goCPStepper(BuildContext context) {
+    Application.router.navigateTo(context, Routes.stepper, replace: false, transition: TransitionType.cupertino);
+  }
+  static void goCPTabbar(BuildContext context) {
+    Application.router.navigateTo(context, Routes.tabbar, replace: false, transition: TransitionType.cupertino);
+  }
+  //          
 
   /// 跳转到 传参demo 页面
   // static void goDemoParamsPage(BuildContext context, String name, int age,
